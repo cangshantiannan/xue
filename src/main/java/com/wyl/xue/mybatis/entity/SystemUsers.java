@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -18,6 +19,7 @@ import java.util.Date;
  */
 @Data
 @Builder
+@NoArgsConstructor
 @TableName(value = "system_users")
 public class SystemUsers extends Model<SystemUsers> {
     /**
