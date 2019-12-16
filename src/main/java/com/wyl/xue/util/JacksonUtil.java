@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @author wangyl
  * @version V1.0
  */
-public class JacksonUntils {
+public class JacksonUtil {
     public static final ObjectMapper mapper = new ObjectMapper();
 
     /**

@@ -13,7 +13,7 @@ import java.io.PrintWriter;
  * @author wangyl
  * @version V1.0
  */
-public enum ResponseUntil {
+public enum ResponseUtil {
     RESPONSE;
 
     /**
