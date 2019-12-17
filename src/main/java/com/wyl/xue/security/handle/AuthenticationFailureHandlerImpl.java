@@ -1,7 +1,7 @@
 package com.wyl.xue.security.handle;
 
 
-import com.wyl.xue.util.ResponseUntil;
+import com.wyl.xue.util.ResponseUtil;
 import com.wyl.xue.util.WebResult;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -24,7 +24,7 @@ public class AuthenticationFailureHandlerImpl implements AuthenticationFailureHa
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
         String message = "认证失败，请联系网站管理员！";
-        ResponseUntil.writeResponse(WebResult.error(message), response);
+        ResponseUtil.writeResponse(WebResult.error(message), response);
     }
 }
 

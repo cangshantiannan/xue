@@ -1,6 +1,6 @@
 package com.wyl.xue.security.handle;
 
-import com.wyl.xue.util.ResponseUntil;
+import com.wyl.xue.util.ResponseUtil;
 import com.wyl.xue.util.WebResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
@@ -33,6 +33,6 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
      */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
-        ResponseUntil.writeResponse(WebResult.error(HttpStatus.UNAUTHORIZED.value(), "请求访问:" + request.getRequestURI() + "接口,经jwt 认证失败,无法访问系统资源"), response);
+        ResponseUtil.writeResponse(WebResult.error(HttpStatus.UNAUTHORIZED.value(), "请求访问:" + request.getRequestURI() + "接口,经jwt 认证失败,无法访问系统资源"), response);
     }
 }

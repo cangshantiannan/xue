@@ -8,12 +8,11 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * <p>
- * 用户角色表
- * </p>
- *
- * @author lihaodong
- * @since 2019-04-21
+ * @ClassName: SystemUserRole
+ * @Function: 用户角色信息表
+ * @Date: 2019/12/18 0:29
+ * @author wangyl
+ * @version V1.0
  */
 @Data
 @Builder

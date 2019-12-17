@@ -1,28 +1,23 @@
-package com.wyl.xue.mybatis.mapper;
+package com.wyl.xue.mybatis.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 /**
- * <p>
- * 角色菜单表
- * </p>
- *
- * @author lihaodong
- * @since 2019-04-21
+ * @ClassName: SystemRoleDepartment
+ * @Function: 角色与部门对应关系
+ * @Date: 2019/12/17 13:57
+ * @author wangyl
+ * @version V1.0
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("system_role_menu")
-public class SystemRoleMenu extends Model<SystemRoleMenu> {
-
-    private static final long serialVersionUID = 1L;
+@Builder
+@TableName("system_role_department")
+public class SystemRoleDepartment extends Model<SystemRoleDepartment> {
 
     /**
      * 主键ID
@@ -36,7 +31,7 @@ public class SystemRoleMenu extends Model<SystemRoleMenu> {
     private Integer roleId;
 
     /**
-     * 菜单ID
+     * 部门ID
      */
-    private Integer menuId;
+    private Integer deptId;
 }
