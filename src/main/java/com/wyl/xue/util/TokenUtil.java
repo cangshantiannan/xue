@@ -4,11 +4,6 @@
  **/
 package com.wyl.xue.util;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -16,6 +11,9 @@ import org.apache.tomcat.util.codec.binary.Base64;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @ClassName: TokenUntil
@@ -49,13 +47,12 @@ public class TokenUtil {
      */
     private static final String AUTHORITIES = "authorities";
 
-
     /**
-     * @Description
-     * @param userName
-     * @param authorities
-     * @param expire_time
-     * @param TokenId
+     * @Description 生成一个用户信息的Token 自定义有效时间
+     * @param userName 用户名称
+     * @param authorities 用户权限列表
+     * @param expire_time 有效时间
+     * @param TokenId tokenid
      * @return java.lang.String
      * @Date 2019/12/17 1:11
      * @Author wangyl
@@ -70,10 +67,10 @@ public class TokenUtil {
     }
 
     /**
-     * @Description
-     * @param userName
-     * @param authorities
-     * @param TokenId
+     * @Description 生成一个用户信息的Token 默认有效时间1小时
+     * @param userName 用户名称
+     * @param authorities 用户权限列表
+     * @param TokenId tokenid
      * @return java.lang.String
      * @Date 2019/12/17 1:11
      * @Author wangyl
@@ -86,6 +83,7 @@ public class TokenUtil {
         claims.put(AUTHORITIES, authorities);
         return generateToken(claims, EXPIRE_TIME, TokenId);
     }
+
 
     /**
      * @Description 生成一个JWT信息
@@ -101,6 +99,35 @@ public class TokenUtil {
         Date expirationDate = new Date(System.currentTimeMillis() + expire_time);
         return Jwts.builder().setClaims(claims).setId(TokenId).setExpiration(expirationDate).signWith(SignatureAlgorithm.HS512, generalKey()).compact();
     }
+
+    /**
+     * @Description 判断Token是否时效
+     * @param token
+     * @return java.lang.Boolean
+     * @Date 2019/12/17 13:41
+     * @Author wangyl
+     * @Version V1.0
+     */
+    private static Boolean isTokenExpired(String token) {
+        Claims claims = getClaimsFromToken(token);
+        Date expiration = claims.getExpiration();
+        return expiration.before(new Date());
+    }
+
+
+    /**
+     * @Description 从Token中获取Claims信息
+     * @param token
+     * @return io.jsonwebtoken.Claims
+     * @Date 2019/12/17 13:24
+     * @Author wangyl
+     * @Version V1.0
+     */
+    private static Claims getClaimsFromToken(String token) {
+        Claims claims = Jwts.parser().setSigningKey(generalKey()).parseClaimsJws(token).getBody();
+        return claims;
+    }
+
 
     /**
      * @Description 通过Base64加密生成秘钥
