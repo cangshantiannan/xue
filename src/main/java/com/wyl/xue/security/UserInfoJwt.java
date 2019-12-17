@@ -4,18 +4,17 @@
  **/
 package com.wyl.xue.security;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import com.wyl.xue.util.TokenUtilBase;
-import org.springframework.lang.Nullable;
-import org.springframework.util.StringUtils;
+import io.jsonwebtoken.Claims;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @ClassName: UserInfoJwt
- * @Function: 用户JWT
+ * @Function: TODO
  * @Date: 2019/12/17 20:21
  * @author wyl
  * @version V1.0
@@ -36,15 +35,6 @@ public class UserInfoJwt {
      */
     private static final String AUTHORITIES = "authorities";
 
-    /**
-     * 用户ID
-     */
-    private static final String USERID = "userid";
-
-
-    final static private String TOKENHEADER = "Bearer ";
-
-    final static private String AUTHTOKENSTART = "Authorization";
 
     /**
      * @Description 生成一个用户信息的Token 自定义有效时间
@@ -62,7 +52,6 @@ public class UserInfoJwt {
         claims.put(USERNAME, userName);
         claims.put(CREATED, new Date());
         claims.put(AUTHORITIES, authorities);
-        claims.put(USERID, TokenId);
         return tokenUtilBase.generateToken(claims, expire_time, TokenId);
     }
 
@@ -81,7 +70,6 @@ public class UserInfoJwt {
         claims.put(USERNAME, userName);
         claims.put(CREATED, new Date());
         claims.put(AUTHORITIES, authorities);
-        claims.put(USERID, TokenId);
         return tokenUtilBase.generateToken(claims, TokenId);
     }
 
@@ -91,43 +79,24 @@ public class UserInfoJwt {
      * @return java.util.Map
      * @Date 2019/12/17 20:46
      * @Author wangyl
-     * @Version V1.0
+     * @Version  V1.0
      */
     public static Map UserInfo(String token) {
-        if (StringUtils.isEmpty(token)) {
-            return null;
-        }
         return tokenUtilBase.getClaimsFromToken(token);
     }
 
     /**
-     * @Description 判断是否过期
+     * @Description 从token中返回用户信息
      * @param token
-     * @return java.lang.Boolean
-     * @Date 2020/4/16 23:22
+     * @return java.util.Map
+     * @Date 2019/12/17 20:46
      * @Author wangyl
-     * @Version V1.0
+     * @Version  V1.0
      */
     public static Boolean UserInfoTokenTimeOut(String token) {
         return tokenUtilBase.tokenExpired(token);
     }
 
 
-    /**
-     * @Description 从请求头获取token信息
-     * @param request 请求头
-     * @return java.lang.String
-     * @Date 2019/12/21 21:46
-     * @Author wangyl
-     * @Version V1.0
-     */
-    public static String getToken(@Nullable HttpServletRequest request) {
-        String token = request.getHeader(AUTHTOKENSTART);
-        if (!StringUtils.isEmpty(token)) {
-            token = token.substring(TOKENHEADER.length());
-        } else {
-            return null;
-        }
-        return token;
-    }
+
 }

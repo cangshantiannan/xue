@@ -8,16 +8,16 @@ import lombok.Builder;
 import lombok.Data;
 
 /**
- * @ClassName: SystemUserRole
- * @Function: 用户角色信息表
- * @Date: 2019/12/18 0:29
+ * @ClassName: SystemRoleDepartment
+ * @Function: 角色与部门对应关系
+ * @Date: 2019/12/17 13:57
  * @author wangyl
  * @version V1.0
  */
 @Data
 @Builder
-@TableName("system_user_role")
-public class SystemUserRole extends Model<SystemUserRole> {
+@TableName("system_role_department")
+public class SystemRoleDepartment extends Model<SystemRoleDepartment> {
 
     /**
      * 主键ID
@@ -26,13 +26,12 @@ public class SystemUserRole extends Model<SystemUserRole> {
     private Integer id;
 
     /**
-     * 用户ID
-     */
-    private Integer userId;
-
-    /**
      * 角色ID
      */
     private Integer roleId;
 
+    /**
+     * 部门ID
+     */
+    private Integer deptId;
 }

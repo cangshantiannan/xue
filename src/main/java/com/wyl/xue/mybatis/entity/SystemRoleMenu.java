@@ -6,18 +6,22 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Builder;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
- * @ClassName: SystemUserRole
- * @Function: 用户角色信息表
- * @Date: 2019/12/18 0:29
+ * @ClassName: SystemRoleMenu
+ * @Function: 角色和菜单关联表
+ * @Date: 2019/12/18 0:28
  * @author wangyl
  * @version V1.0
  */
 @Data
 @Builder
-@TableName("system_user_role")
-public class SystemUserRole extends Model<SystemUserRole> {
+@TableName("system_role_menu")
+public class SystemRoleMenu extends Model<SystemRoleMenu> {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 主键ID
@@ -26,13 +30,12 @@ public class SystemUserRole extends Model<SystemUserRole> {
     private Integer id;
 
     /**
-     * 用户ID
-     */
-    private Integer userId;
-
-    /**
      * 角色ID
      */
     private Integer roleId;
 
+    /**
+     * 菜单ID
+     */
+    private Integer menuId;
 }
