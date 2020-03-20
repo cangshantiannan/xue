@@ -11,9 +11,7 @@ import org.apache.tomcat.util.codec.binary.Base64;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -27,7 +25,7 @@ public class TokenUtilBase {
     /**
      * 默认有效期1小时
      */
-    private long EXPIRE_TIME = 60 * 60 * 1000;
+    private long EXPIRE_TIME = 60 * 60 * 60 * 1000;
     /**
      * 密钥
      */

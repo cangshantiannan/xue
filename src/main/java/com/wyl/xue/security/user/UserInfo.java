@@ -1,4 +1,4 @@
-package com.wyl.xue.security;
+package com.wyl.xue.security.user;
 
 import lombok.Builder;
 import lombok.Data;
@@ -16,20 +16,11 @@ import java.util.Collection;
  */
 @Data
 @Builder
-public class SecurityUserInfo implements UserDetails {
-
-    private static final long serialVersionUID = 1L;
+public class UserInfo implements UserDetails {
     private Integer userId;
     private String username;
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
-
-    public SecurityUserInfo(Integer userId, String username, String password, Collection<? extends GrantedAuthority> authorities) {
-        this.userId = userId;
-        this.username = username;
-        this.password = password;
-        this.authorities = authorities;
-    }
 
     /**
      * 返回分配给用户的角色列表

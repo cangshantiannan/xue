@@ -33,5 +33,5 @@ public class SystemRoleDepartment extends Model<SystemRoleDepartment> {
     /**
      * 部门ID
      */
-    private Integer deptId;
+    private Integer departmentId;
 }

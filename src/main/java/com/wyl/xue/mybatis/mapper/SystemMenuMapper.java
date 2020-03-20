@@ -1,6 +1,6 @@
 /**
  * @Author wangyl
- * @E-mail wangyl@dsgdata.com
+ * @E-mail wangyl0629@foxmail.com
  **/
 package com.wyl.xue.mybatis.mapper;
 

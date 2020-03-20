@@ -4,13 +4,13 @@
  **/
 package com.wyl.xue.security.filter;
 
-import com.wyl.xue.security.SecurityUserInfo;
 import com.wyl.xue.security.UserInfoJwt;
+import com.wyl.xue.security.user.UserInfo;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -30,15 +30,16 @@ import java.util.Set;
  * @author wyl
  * @version V1.0
  */
+@Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        Map userInfo = UserInfoJwt.UserInfo(httpServletRequest.getHeader(""));
-        SecurityUserInfo securityUserInfo = SecurityUserInfo.builder().userId(Integer.valueOf(userInfo.get("").toString())).username(userInfo.get("").toString()).authorities(null).build();
-        if (!Objects.isNull(securityUserInfo)) {
+        Map userInfo = UserInfoJwt.UserInfo(httpServletRequest.getHeader("Authorization"));
+        if (!Objects.isNull(userInfo)) {
+            UserInfo securityUserInfo = UserInfo.builder().userId(Integer.valueOf(userInfo.get(UserInfoJwt.USERID).toString())).username(userInfo.get(UserInfoJwt.USERNAME).toString()).authorities(null).build();
             Set<String> permissions = null;//userService.findPermsByUserId(securityUser.getUserId());
-            Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(permissions.toArray(new String[0]));
+            Collection<? extends GrantedAuthority> authorities = null;//AuthorityUtils.createAuthorityList(permissions.toArray(new String[0]));
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(securityUserInfo, null, authorities);
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);

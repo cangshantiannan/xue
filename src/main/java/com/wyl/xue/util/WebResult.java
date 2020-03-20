@@ -2,6 +2,7 @@ package com.wyl.xue.util;
 
 import lombok.*;
 import org.springframework.http.HttpStatus;
+
 import java.io.Serializable;
 
 
@@ -13,6 +14,7 @@ import java.io.Serializable;
  * @version V1.0
  */
 @Builder
+@Data
 public class WebResult implements Serializable {
 
     private static final long serialVersionUID = 1L;
