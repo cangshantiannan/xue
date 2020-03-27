@@ -10,16 +10,16 @@ import lombok.EqualsAndHashCode;
  * @Param
  * @return
  * @Author wangyl
- * @Version    V1.0
+ * @Version V1.0
  */
 @Data
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 public class BaseTree extends TreeNode<BaseTree> {
-	private String name;
+    private String name;
 
-	public BaseTree(Object uuid, Object parent_id, String name) {
-		this.name = name;
-		this.setId(uuid);
-		this.setParent_id(parent_id);
-	}
+    public BaseTree(Object id, Object parent_id, String name) {
+        this.name = name;
+        this.setId(id);
+        this.setParent_id(parent_id);
+    }
 }
