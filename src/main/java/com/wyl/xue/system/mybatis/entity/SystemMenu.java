@@ -26,8 +26,8 @@ public class SystemMenu extends Model<SystemMenu> {
     /**
      * 菜单ID
      */
-    @TableId(value = "menu_id", type = IdType.AUTO)
-    private Integer menuId;
+    @TableId(value = "menu_id", type = IdType.ASSIGN_UUID)
+    private String menuId;
 
     /**
      * 菜单名称
@@ -42,22 +42,12 @@ public class SystemMenu extends Model<SystemMenu> {
     /**
      * 父菜单ID
      */
-    private Integer parentId;
+    private String parentId;
 
     /**
      * 菜单类型 （类型   0：目录   1：菜单   2：按钮）
      */
     private Integer type;
-
-    /**
-     * 创建时间
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updateTime;
 
     /**
      * 逻辑删除标记(1--正常 0--删除)

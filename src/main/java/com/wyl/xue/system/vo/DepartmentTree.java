@@ -1,7 +1,6 @@
 package com.wyl.xue.system.vo;
 
 import com.wyl.xue.util.tree.BaseTree;
-import lombok.Builder;
 
 /**
  * @ClassName: DepartmentTree
@@ -11,7 +10,7 @@ import lombok.Builder;
  * @version V1.0
  */
 public class DepartmentTree extends BaseTree {
-    public DepartmentTree(Integer id, Integer parent_id, String name) {
+    public DepartmentTree(String id, String parent_id, String name) {
         super(id, parent_id, name);
     }
 }

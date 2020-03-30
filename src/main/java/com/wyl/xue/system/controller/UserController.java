@@ -58,7 +58,7 @@ public class UserController {
     @ApiOperation(value = "用户删除接口", notes = "根据用户ID删除用户")
     @DeleteMapping(value = "/user/{id}")
     @ResponseBody
-    public WebResult deleteUser(@PathVariable Integer id) {
+    public WebResult deleteUser(@PathVariable String id) {
         SystemUsers users = SystemUsers.builder().userId(id).build();
         if (users.deleteById()) {
             return WebResponse.WebResponse.ok();
@@ -69,7 +69,7 @@ public class UserController {
     @ApiOperation(value = "查询用户信息", notes = "根据用户ID查询用户信息")
     @GetMapping(value = "/user/{id}")
     @ResponseBody
-    public WebResult getUserInfo(@PathVariable Integer id) {
+    public WebResult getUserInfo(@PathVariable String id) {
         SystemUsers users = SystemUsers.builder().userId(id).build();
         try {
             users = users.selectById();

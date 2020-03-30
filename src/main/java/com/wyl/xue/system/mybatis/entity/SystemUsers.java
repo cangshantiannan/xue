@@ -23,8 +23,8 @@ public class SystemUsers extends Model<SystemUsers> {
     /**
      * 主键ID
      */
-    @TableId(value = "user_id", type = IdType.AUTO)
-    private Integer userId;
+    @TableId(value = "user_id", type = IdType.ASSIGN_UUID)
+    private String userId;
 
     /**
      * 用户名

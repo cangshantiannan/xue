@@ -24,8 +24,8 @@ public class SystemRoles extends Model<SystemRoles> implements Serializable {
     /**
      * 角色主键
      */
-    @TableId(value = "role_id", type = IdType.AUTO)
-    private Integer roleId;
+    @TableId(value = "role_id", type = IdType.ASSIGN_UUID)
+    private String id;
 
     /**
      * 角色名称

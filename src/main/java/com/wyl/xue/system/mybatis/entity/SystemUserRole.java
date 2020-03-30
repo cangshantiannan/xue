@@ -16,8 +16,8 @@ import lombok.Data;
  */
 @Data
 @Builder
-@TableName("system_department_role")
-public class SystemDepartmentRole extends Model<SystemDepartmentRole> {
+@TableName("system_user_role")
+public class SystemUserRole extends Model<SystemUserRole> {
 
     /**
      * 主键ID
@@ -26,11 +26,11 @@ public class SystemDepartmentRole extends Model<SystemDepartmentRole> {
     private Integer id;
 
     /**
-     * 部门ID
+     * 用户ID
      */
-    private Integer departmentId;
+    private String UserId;
     /**
      * 角色ID
      */
-    private Integer roleId;
+    private String roleId;
 }

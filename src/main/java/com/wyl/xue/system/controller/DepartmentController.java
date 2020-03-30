@@ -56,7 +56,7 @@ public class DepartmentController {
     @DeleteMapping(value = "/department/{id}")
     @ResponseBody
     @ApiOperation(value = "删除部门信息", notes = "根据部门ID删除指定部门")
-    public WebResult deleteDepartment(@PathVariable Integer id) {
+    public WebResult deleteDepartment(@PathVariable String id) {
         SystemDepartment systemDepartment = SystemDepartment.builder().departmentId(id).build();
         if (systemDepartment.deleteById()) {
             return WebResponse.WebResponse.ok();

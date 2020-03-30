@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Builder;
 import lombok.Data;
+
 import java.util.Date;
 
 /**
@@ -22,8 +23,8 @@ public class SystemDepartment extends Model<SystemDepartment> {
     /**
      * 部门主键ID
      */
-    @TableId(value = "department_id", type = IdType.AUTO)
-    private Integer departmentId;
+    @TableId(value = "department_id", type = IdType.ASSIGN_UUID)
+    private String departmentId;
 
     /**
      * 部门名称

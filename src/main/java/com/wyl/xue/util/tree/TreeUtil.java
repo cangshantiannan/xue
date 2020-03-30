@@ -88,4 +88,21 @@ public class TreeUtil<T extends TreeNode> {
         return treeNode;
     }
 
+    /**
+     * @Description 获取树的所有节点的值
+     * @param treeNodes 树
+     * @param resultIdList 返回所有节点的id列表
+     * @return void
+     * @Date 2020/3/30 16:23
+     * @Author wangyl
+     * @Version V1.0
+     */
+    public static <T extends TreeNode> void getTreeChildrenId(List<T> treeNodes, List<Object> resultIdList) {
+        for (T it : treeNodes) {
+            resultIdList.add(it.getId());
+            if (it.getChildrenCount() != 0) {
+                getTreeChildrenId(it.getChildren(), resultIdList);
+            }
+        }
+    }
 }

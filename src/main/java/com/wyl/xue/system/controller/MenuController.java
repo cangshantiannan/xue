@@ -57,7 +57,7 @@ public class MenuController {
     @DeleteMapping(value = "/menu/{id}")
     @ResponseBody
     @ApiOperation(value = "删除菜单信息", notes = "根据菜单id删除指定菜单")
-    public WebResult deleteMenu(@PathVariable Integer id) {
+    public WebResult deleteMenu(@PathVariable String id) {
         SystemMenu users = SystemMenu.builder().menuId(id).build();
         if (users.deleteById()) {
             return WebResponse.WebResponse.ok();
@@ -65,11 +65,4 @@ public class MenuController {
         return WebResponse.WebResponse.error(ResultCode.DATAINSERTERROR);
     }
 
-
-    @GetMapping(value = "/menu")
-    @ResponseBody
-    @ApiOperation(value = "以树形结构获取菜单信息", notes = "一次以树形结构获取菜单信息")
-    public WebResult getMenu() {
-        return WebResponse.WebResponse.ok(systemMenuService.count());
-    }
 }

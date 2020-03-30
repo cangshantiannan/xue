@@ -28,13 +28,13 @@ public class SystemRoleMenu extends Model<SystemRoleMenu> implements Serializabl
     /**
      * 主键ID
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "id", type = IdType.ASSIGN_UUID)
+    private String id;
 
     /**
      * 角色ID
      */
-    private Integer roleId;
+    private String roleId;
 
     /**
      * 菜单ID
