@@ -23,6 +23,15 @@ import java.util.List;
 @Service
 @Slf4j
 public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMapper, SystemDepartment> implements SystemDepartmentService {
+
+
+    /**
+     * @Description 获取部门的树形信息
+     * @return com.wyl.xue.system.vo.DepartmentTree
+     * @Date 2020/3/27 17:46
+     * @Author wangyl
+     * @Version V1.0
+     */
     @Override
     public List<DepartmentTree> getDepartmentTree() {
         List<SystemDepartment> systemDepartmentList = this.list();
@@ -32,5 +41,21 @@ public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMap
             departmentTreeList.add(departmentTree);
         });
         return TreeUtil.bulid(departmentTreeList, "-1", null);
+    }
+
+    /**
+     * @Description 获取指定id的树的所有子节点id
+     * @param id 指定id
+     * @return java.util.List<java.lang.String>
+     * @Date 2020/3/30 22:17
+     * @Author wangyl
+     * @Version V1.0
+     */
+    @Override
+    public List<Object> getDepartmentTreeById(String id) {
+        List<Object> resultIdList = new ArrayList<>();
+        List<DepartmentTree> departmentTreeList = this.getDepartmentTree();
+        TreeUtil.getTreeChildrenId(departmentTreeList, resultIdList);
+        return resultIdList;
     }
 }

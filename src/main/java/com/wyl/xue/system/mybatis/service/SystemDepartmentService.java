@@ -26,4 +26,13 @@ public interface SystemDepartmentService extends IService<SystemDepartment> {
      */
     List<DepartmentTree> getDepartmentTree();
 
+    /**
+     * @Description 获取指定id的树的所有子节点id
+     * @param id 指定id
+     * @return java.util.List<java.lang.String>
+     * @Date 2020/3/30 22:17
+     * @Author wangyl
+     * @Version  V1.0
+     */
+    List<Object> getDepartmentTreeById(String id);
 }

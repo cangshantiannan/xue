@@ -2,10 +2,8 @@ package com.wyl.xue.system.mybatis.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.xue.system.mybatis.entity.SystemUsers;
-import io.swagger.models.auth.In;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * @ClassName: SystemUsersService
@@ -21,7 +19,7 @@ public interface SystemUsersService extends IService<SystemUsers> {
      * @return java.util.List<com.wyl.xue.system.mybatis.entity.SystemUsers>
      * @Date 2020/3/27 18:15
      * @Author wangyl
-     * @Version  V1.0
+     * @Version V1.0
      */
-    List<SystemUsers> getSystemUsersByDepartmentId(Integer departmentId);
+    List<SystemUsers> getSystemUsersByDepartmentId(List<Object> departmentId);
 }
