@@ -2,6 +2,9 @@ package com.wyl.xue.system.mybatis.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.xue.system.mybatis.entity.SystemMenu;
+import com.wyl.xue.system.vo.MenuTree;
+
+import java.util.List;
 
 /**
  * @ClassName: SystemMenuService
@@ -11,5 +14,5 @@ import com.wyl.xue.system.mybatis.entity.SystemMenu;
  * @version V1.0
  */
 public interface SystemMenuService extends IService<SystemMenu> {
-
+    List<MenuTree> getMenuTree();
 }

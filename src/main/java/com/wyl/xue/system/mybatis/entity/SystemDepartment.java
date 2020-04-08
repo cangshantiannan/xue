@@ -7,8 +7,6 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.Date;
-
 /**
  * @ClassName: SystemDepartment
  * @Function: 部门表
@@ -39,6 +37,6 @@ public class SystemDepartment extends Model<SystemDepartment> {
     /**
      * 上级部门
      */
-    private Integer parentId;
+    private String parentId;
 
 }

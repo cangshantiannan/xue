@@ -4,9 +4,7 @@
  **/
 package com.wyl.xue.system.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wyl.xue.system.mybatis.entity.SystemMenu;
-import com.wyl.xue.system.mybatis.entity.SystemUsers;
 import com.wyl.xue.system.mybatis.service.SystemMenuService;
 import com.wyl.xue.util.result.ResultCode;
 import com.wyl.xue.util.result.WebResponse;
@@ -52,6 +50,14 @@ public class MenuController {
             return WebResponse.WebResponse.ok();
         }
         return WebResponse.WebResponse.error(ResultCode.DATAINSERTERROR);
+    }
+
+
+    @GetMapping(value = "/menu/tree")
+    @ResponseBody
+    @ApiOperation(value = "获取菜单树")
+    public WebResult menuTree() {
+        return WebResponse.WebResponse.ok(systemMenuService.getMenuTree());
     }
 
     @DeleteMapping(value = "/menu/{id}")

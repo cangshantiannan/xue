@@ -37,7 +37,7 @@ public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMap
         List<SystemDepartment> systemDepartmentList = this.list();
         List<DepartmentTree> departmentTreeList = new ArrayList<>();
         systemDepartmentList.stream().forEach(systemDepartment -> {
-            DepartmentTree departmentTree = new DepartmentTree(systemDepartment.getDepartmentId(), systemDepartment.getDepartmentId(), systemDepartment.getDepartmentName());
+            DepartmentTree departmentTree = new DepartmentTree(systemDepartment.getDepartmentId(), systemDepartment.getParentId(), systemDepartment.getDepartmentName());
             departmentTreeList.add(departmentTree);
         });
         return TreeUtil.bulid(departmentTreeList, "-1", null);
