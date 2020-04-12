@@ -32,7 +32,18 @@ public interface SystemDepartmentService extends IService<SystemDepartment> {
      * @return java.util.List<java.lang.String>
      * @Date 2020/3/30 22:17
      * @Author wangyl
-     * @Version  V1.0
+     * @Version V1.0
      */
     List<Object> getDepartmentTreeById(String id);
+
+    /**
+     * @Description 获取指定部门下的所有一级子菜单
+     * @param id 部门id
+     * @return java.util.List<com.wyl.xue.system.mybatis.entity.SystemDepartment>
+     * @Date 2020/4/12 23:17
+     * @Author wangyl
+     * @Version V1.0
+     */
+    List<SystemDepartment> getSubdirectoryById(String id);
+
 }

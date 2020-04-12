@@ -39,7 +39,7 @@ public class UserController {
     @PostMapping(value = "/user")
     @ResponseBody
     public WebResult addUser(@RequestBody SystemUsers userInfo) {
-        if (userInfo.insert()) {
+        if (systemUsersService.save(userInfo)) {
             return WebResponse.WebResponse.ok();
         }
         return WebResponse.WebResponse.error(ResultCode.DATAINSERTERROR);
@@ -49,7 +49,7 @@ public class UserController {
     @PutMapping(value = "/user")
     @ResponseBody
     public WebResult changeUser(@RequestBody SystemUsers userInfo) {
-        if (userInfo.updateById()) {
+        if (systemUsersService.updateById(userInfo)) {
             return WebResponse.WebResponse.ok();
         }
         return WebResponse.WebResponse.error(ResultCode.DATAINSERTERROR);
@@ -60,7 +60,7 @@ public class UserController {
     @ResponseBody
     public WebResult deleteUser(@PathVariable String id) {
         SystemUsers users = SystemUsers.builder().userId(id).build();
-        if (users.deleteById()) {
+        if (systemUsersService.removeById(id)) {
             return WebResponse.WebResponse.ok();
         }
         return WebResponse.WebResponse.error(ResultCode.DATAINSERTERROR);
@@ -70,10 +70,9 @@ public class UserController {
     @GetMapping(value = "/user/{id}")
     @ResponseBody
     public WebResult getUserInfo(@PathVariable String id) {
-        SystemUsers users = SystemUsers.builder().userId(id).build();
         try {
-            users = users.selectById();
-            return WebResponse.WebResponse.ok(users);
+            SystemUsers systemUsers = systemUsersService.getById(id);
+            return WebResponse.WebResponse.ok(systemUsers);
         }
         catch (Exception e) {
             return WebResponse.WebResponse.error(e);

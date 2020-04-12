@@ -3,7 +3,6 @@ package com.wyl.xue.system.mybatis.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,7 +16,7 @@ import lombok.Data;
 @Data
 @Builder
 @TableName(value = "system_department")
-public class SystemDepartment extends Model<SystemDepartment> {
+public class SystemDepartment extends SystemBase {
     /**
      * 部门主键ID
      */

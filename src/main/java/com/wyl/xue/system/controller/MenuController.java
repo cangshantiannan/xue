@@ -36,7 +36,7 @@ public class MenuController {
     @ResponseBody
     @ApiOperation(value = "新增菜单信息", notes = "根据菜单信息新增菜单")
     public WebResult addMenu(@RequestBody SystemMenu systemMenu) {
-        if (systemMenu.insert()) {
+        if (systemMenuService.save(systemMenu)) {
             return WebResponse.WebResponse.ok();
         }
         return WebResponse.WebResponse.error(ResultCode.DATAINSERTERROR);
@@ -46,7 +46,7 @@ public class MenuController {
     @ResponseBody
     @ApiOperation(value = "更新菜单信息", notes = "根据菜单信息更新菜单")
     public WebResult changeMenu(@RequestBody SystemMenu systemMenu) {
-        if (systemMenu.updateById()) {
+        if (systemMenuService.updateById(systemMenu)) {
             return WebResponse.WebResponse.ok();
         }
         return WebResponse.WebResponse.error(ResultCode.DATAINSERTERROR);
@@ -64,8 +64,7 @@ public class MenuController {
     @ResponseBody
     @ApiOperation(value = "删除菜单信息", notes = "根据菜单id删除指定菜单")
     public WebResult deleteMenu(@PathVariable String id) {
-        SystemMenu users = SystemMenu.builder().menuId(id).build();
-        if (users.deleteById()) {
+        if (systemMenuService.removeById(id)) {
             return WebResponse.WebResponse.ok();
         }
         return WebResponse.WebResponse.error(ResultCode.DATAINSERTERROR);

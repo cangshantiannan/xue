@@ -3,13 +3,8 @@ package com.wyl.xue.system.mybatis.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
-import java.io.Serializable;
 
 /**
  * @ClassName: SystemRoleMenu
@@ -21,7 +16,7 @@ import java.io.Serializable;
 @Data
 @Builder
 @TableName("system_role_menu")
-public class SystemRoleMenu extends Model<SystemRoleMenu> implements Serializable {
+public class SystemRoleMenu extends SystemBase   {
 
     private static final long serialVersionUID = 1L;
 

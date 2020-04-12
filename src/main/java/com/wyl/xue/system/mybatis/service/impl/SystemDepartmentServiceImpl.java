@@ -1,5 +1,6 @@
 package com.wyl.xue.system.mybatis.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wyl.xue.system.mybatis.entity.SystemDepartment;
 import com.wyl.xue.system.mybatis.mapper.SystemDepartmentMapper;
@@ -57,5 +58,18 @@ public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMap
         List<DepartmentTree> departmentTreeList = this.getDepartmentTree();
         TreeUtil.getTreeChildrenId(departmentTreeList, resultIdList);
         return resultIdList;
+    }
+
+    /**
+     * @Description 获取指定部门下的所有一级子菜单
+     * @param id 部门id
+     * @return java.util.List<com.wyl.xue.system.mybatis.entity.SystemDepartment>
+     * @Date 2020/4/12 23:17
+     * @Author wangyl
+     * @Version V1.0
+     */
+    @Override
+    public List<SystemDepartment> getSubdirectoryById(String id) {
+        return list(Wrappers.<SystemDepartment>lambdaQuery().eq(SystemDepartment::getParentId, id));
     }
 }

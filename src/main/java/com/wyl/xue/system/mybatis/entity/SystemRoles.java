@@ -3,12 +3,8 @@ package com.wyl.xue.system.mybatis.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Builder;
 import lombok.Data;
-
-import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @ClassName: SystemRoles
@@ -20,7 +16,7 @@ import java.util.Date;
 @Data
 @Builder
 @TableName(value = "system_roles")
-public class SystemRoles extends Model<SystemRoles> implements Serializable {
+public class SystemRoles extends SystemBase{
     /**
      * 角色主键
      */

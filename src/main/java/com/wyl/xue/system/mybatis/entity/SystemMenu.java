@@ -3,13 +3,8 @@ package com.wyl.xue.system.mybatis.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
-import java.time.LocalDateTime;
 
 /**
  * @ClassName: SystemMenu
@@ -21,7 +16,7 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 @TableName("system_menu")
-public class SystemMenu extends Model<SystemMenu> {
+public class SystemMenu extends SystemBase {
 
     /**
      * 菜单ID

@@ -3,10 +3,8 @@ package com.wyl.xue.system.mybatis.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Builder;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * @ClassName: SystemUsers
@@ -17,9 +15,8 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Builder
-@Accessors(chain = true)
 @TableName(value = "system_users")
-public class SystemUsers extends Model<SystemUsers> {
+public class SystemUsers extends SystemBase {
     /**
      * 主键ID
      */
