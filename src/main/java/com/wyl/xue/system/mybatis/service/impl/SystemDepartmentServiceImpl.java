@@ -1,12 +1,15 @@
 package com.wyl.xue.system.mybatis.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wyl.xue.system.mybatis.entity.SystemDepartment;
 import com.wyl.xue.system.mybatis.mapper.SystemDepartmentMapper;
 import com.wyl.xue.system.mybatis.service.SystemDepartmentService;
 import com.wyl.xue.system.vo.DepartmentTree;
 import com.wyl.xue.util.tree.TreeUtil;
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -69,7 +72,9 @@ public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMap
      * @Version V1.0
      */
     @Override
-    public List<SystemDepartment> getSubdirectoryById(String id) {
-        return list(Wrappers.<SystemDepartment>lambdaQuery().eq(SystemDepartment::getParentId, id));
+    public IPage<SystemDepartment> getSubdirectoryById(String id, Integer page, Integer size) {
+        Page<SystemDepartment> pageInfo = new Page<>(page, size);
+        IPage<SystemDepartment> systemDepartmentPage = this.page(pageInfo, Wrappers.<SystemDepartment>lambdaQuery().eq(SystemDepartment::getParentId, id));
+        return systemDepartmentPage;
     }
 }

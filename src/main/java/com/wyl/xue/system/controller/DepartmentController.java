@@ -4,6 +4,7 @@
  **/
 package com.wyl.xue.system.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wyl.xue.system.mybatis.entity.SystemDepartment;
 import com.wyl.xue.system.mybatis.service.SystemDepartmentService;
 import com.wyl.xue.system.vo.DepartmentTree;
@@ -11,7 +12,9 @@ import com.wyl.xue.util.result.WebResponse;
 import com.wyl.xue.util.result.WebResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
+import org.omg.CORBA.INTERNAL;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +22,7 @@ import java.util.List;
 
 /**
  * @ClassName: DepartmentController
- * @Function: TODO
+ * @Function: 
  * @Date: 2019/12/23 22:12
  * @author wyl
  * @version V1.0
@@ -58,9 +61,9 @@ public class DepartmentController {
     }
 
     @ApiOperation(value = "获取指定部门下的一级子目录")
-    @GetMapping
-    public WebResult<List<SystemDepartment>> getSubdirectoryById(@PathVariable String id) {
-        return null;
+    @GetMapping(value = "/department/{id}/{page}/{size}")
+    public WebResult<IPage<SystemDepartment>> getSubdirectoryById(@PathVariable String id, @PathVariable Integer page, @PathVariable Integer size) {
+        return WebResponse.WebResponse.ok(systemDepartmentService.getSubdirectoryById(id, page, size));
     }
 
 }

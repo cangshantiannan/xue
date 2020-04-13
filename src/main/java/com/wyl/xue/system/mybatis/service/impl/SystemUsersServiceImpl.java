@@ -4,14 +4,23 @@
  **/
 package com.wyl.xue.system.mybatis.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wyl.xue.system.mybatis.entity.SystemUserRole;
 import com.wyl.xue.system.mybatis.entity.SystemUsers;
 import com.wyl.xue.system.mybatis.mapper.SystemUsersMapper;
+import com.wyl.xue.system.mybatis.service.SystemDepartmentService;
+import com.wyl.xue.system.mybatis.service.SystemUserRoleService;
 import com.wyl.xue.system.mybatis.service.SystemUsersService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.beans.Transient;
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -24,21 +33,27 @@ import java.util.List;
  */
 @Service
 @Slf4j
+@AllArgsConstructor
 public class SystemUsersServiceImpl extends ServiceImpl<SystemUsersMapper, SystemUsers> implements SystemUsersService {
+
+    final SystemDepartmentService systemDepartmentService;
+    final SystemUserRoleService systemUserRoleService;
 
     /**
      * @Description 通过部门id获取该部门下的所有用户 包含子部门
-     * @param departmentIds 部门id
+     * @param departmentId 部门id
      * @return java.util.List<com.wyl.xue.system.mybatis.entity.SystemUsers>
      * @Date 2020/3/27 18:15
      * @Author wangyl
      * @Version V1.0
      */
     @Override
-    public List<SystemUsers> getSystemUsersByDepartmentIds(List<Object> departmentIds) {
-        List<SystemUsers> systemUsers = this.list(Wrappers.<SystemUsers>lambdaQuery().in(SystemUsers::getDepartmentId, departmentIds));
+    public IPage<SystemUsers> getSystemUsersByDepartmentId(String departmentId, Integer page, Integer size) {
+        List<Object> departmentIds = systemDepartmentService.getDepartmentTreeById(departmentId);
+        Page<SystemUsers> pageInfo = new Page<>(page, size);
+        IPage<SystemUsers> systemUsers = this.page(pageInfo, Wrappers.<SystemUsers>lambdaQuery().in(SystemUsers::getDepartmentId, departmentIds));
         if (log.isDebugEnabled()) {
-            log.debug(systemUsers.toString());
+            log.debug("部门列表为[{}],用户为[{}]", departmentIds, systemUsers.toString());
         }
         return systemUsers;
     }
@@ -58,6 +73,39 @@ public class SystemUsersServiceImpl extends ServiceImpl<SystemUsersMapper, Syste
             log.debug(systemUsers.toString());
         }
         return systemUsers;
+    }
+
+    /**
+     * @Description 通过用户id重置用户密码重置密码为123456
+     * @param id 用户ID
+     * @return java.lang.String
+     * @Date 2020/4/13 16:09
+     * @Author wangyl
+     * @Version V1.0
+     */
+    @Override
+    public String resetPasswordById(String id) {
+        SystemUsers systemUsers = this.getById(id);
+        systemUsers.setPassword("123456");
+        this.updateById(systemUsers);
+        return systemUsers.getPassword();
+    }
+
+    @Override
+    public Boolean setUserRoles(String id, List<String> roleIds) {
+        //TODO 用户角色表处理 先删除数据 再重新增加
+        systemUserRoleService.remove(Wrappers.<SystemUserRole>lambdaQuery().eq(SystemUserRole::getUserId, id));
+        return null;
+    }
+
+    @Override
+    @Transient
+    public boolean removeById(Serializable id) {
+        /**
+         *删除用户角色表中个该用户有有关的数据
+         */
+        systemUserRoleService.remove(Wrappers.<SystemUserRole>lambdaQuery().eq(SystemUserRole::getUserId, id));
+        return super.removeById(id);
     }
 }
 

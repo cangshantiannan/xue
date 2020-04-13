@@ -1,9 +1,11 @@
 package com.wyl.xue.system.mybatis.service;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.xue.system.mybatis.entity.SystemDepartment;
 import com.wyl.xue.system.vo.DepartmentTree;
+import io.swagger.models.auth.In;
 
 import java.util.List;
 
@@ -37,13 +39,13 @@ public interface SystemDepartmentService extends IService<SystemDepartment> {
     List<Object> getDepartmentTreeById(String id);
 
     /**
-     * @Description 获取指定部门下的所有一级子菜单
+     * @Description 获取指定部门下的所有一级子菜单 分页查询
      * @param id 部门id
      * @return java.util.List<com.wyl.xue.system.mybatis.entity.SystemDepartment>
      * @Date 2020/4/12 23:17
      * @Author wangyl
      * @Version V1.0
      */
-    List<SystemDepartment> getSubdirectoryById(String id);
+    IPage<SystemDepartment> getSubdirectoryById(String id, Integer page, Integer size);
 
 }

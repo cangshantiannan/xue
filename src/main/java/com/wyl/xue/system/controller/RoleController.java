@@ -2,9 +2,11 @@
  * @Author wangyl
  * @E-mail wangyl0629@foxmail.com
  **/
-package com.wyl.xue.system.manage.controller;
+package com.wyl.xue.system.controller;
 
 import com.wyl.xue.system.mybatis.entity.SystemRoles;
+import com.wyl.xue.system.mybatis.service.SystemRolesService;
+import com.wyl.xue.util.result.WebResponse;
 import com.wyl.xue.util.result.WebResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -23,24 +25,27 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/v1")
 @Api(tags = {"角色信息接口"})
 @AllArgsConstructor
+@ResponseBody
 public class RoleController {
+
+    final SystemRolesService systemRolesService;
 
     @ApiOperation(value = "添加角色信息", notes = "新建一个角色")
     @PostMapping(value = "/role")
-    @ResponseBody
-    public WebResult addRole(@RequestBody SystemRoles systemRoles) {
-        return null;
+    public WebResult<Boolean> addRole(@RequestBody SystemRoles systemRoles) {
+        return WebResponse.WebResponse.ok(systemRolesService.save(systemRoles));
     }
 
     @PutMapping(value = "/role/{id}")
-    @ResponseBody
-    public WebResult changeRole(@RequestBody String tmp) {
-        return null;
+    @ApiOperation(value = "修改角色信息")
+    public WebResult<Boolean> changeRole(@RequestBody SystemRoles systemRoles) {
+        return WebResponse.WebResponse.ok(systemRolesService.save(systemRoles));
     }
 
     @DeleteMapping(value = "/role/{id}")
-    @ResponseBody
-    public WebResult deleteRole(@PathVariable Integer id) {
-        return null;
+    @ApiOperation(value = "通过ID删除一个角色")
+    public WebResult<Boolean> deleteRole(@PathVariable Integer id) {
+        return WebResponse.WebResponse.ok(systemRolesService.removeById(id));
     }
+
 }
