@@ -3,7 +3,6 @@ package com.wyl.xue.system.mybatis.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.xue.system.mybatis.entity.SystemUsers;
-import io.swagger.models.auth.In;
 
 import java.util.List;
 
@@ -47,8 +46,8 @@ public interface SystemUsersService extends IService<SystemUsers> {
 
     /**
      * @Description 设置用户的角色信息
-     * @param id
-     * @param roleIds
+     * @param id 用户id
+     * @param roleIds 角色id列表
      * @return java.lang.Boolean
      * @Date 2020/4/13 16:35
      * @Author wangyl

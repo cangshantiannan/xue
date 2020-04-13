@@ -1,20 +1,26 @@
 package com.wyl.xue.system.mybatis.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wyl.xue.system.mybatis.entity.SystemRoleMenu;
 import com.wyl.xue.system.mybatis.entity.SystemRoles;
+import com.wyl.xue.system.mybatis.entity.SystemUserRole;
 import com.wyl.xue.system.mybatis.mapper.SystemRolesMapper;
 import com.wyl.xue.system.mybatis.service.SystemRoleMenuService;
 import com.wyl.xue.system.mybatis.service.SystemRolesService;
+import com.wyl.xue.system.mybatis.service.SystemUserRoleService;
+import com.wyl.xue.util.exception.BizException;
+import com.wyl.xue.util.result.ResultCode;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.beans.Transient;
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName: SystemRolesServiceImpl
@@ -28,16 +34,47 @@ import java.util.List;
 @Slf4j
 public class SystemRolesServiceImpl extends ServiceImpl<SystemRolesMapper, SystemRoles> implements SystemRolesService {
     final SystemRoleMenuService systemRoleMenuService;
+    final SystemUserRoleService systemUserRoleService;
+
 
     @Override
     @Transient
     public boolean removeById(Serializable id) {
-        systemRoleMenuService.remove(Wrappers.<SystemRoleMenu>lambdaQuery().eq(SystemRoleMenu::getRoleId, id));
-        return super.removeById(id);
+        if (systemUserRoleService.list(Wrappers.<SystemUserRole>lambdaQuery().eq(SystemUserRole::getRoleId, id)).isEmpty()) {
+            systemRoleMenuService.remove(Wrappers.<SystemRoleMenu>lambdaQuery().eq(SystemRoleMenu::getRoleId, id));
+            return super.removeById(id);
+        }
+        log.error("该节点ID[{}]还有先关资源没有被删除", id);
+        throw new BizException(ResultCode.HAVERESOURCES);
     }
 
+    /**
+     * @Description 通过用户ID 获取该用的所有权限
+     * @param userId 用户Id
+     * @return java.util.List<com.wyl.xue.system.mybatis.entity.SystemRoles>
+     * @Date 2020/4/13 17:37
+     * @Author wangyl
+     * @Version V1.0
+     */
     @Override
     public List<SystemRoles> getRolesByUserId(String userId) {
-        return null;
+        List<SystemUserRole> systemUserRoles = systemUserRoleService.list(Wrappers.<SystemUserRole>lambdaQuery().eq(SystemUserRole::getUserId, userId));
+        List<String> roleIds = systemUserRoles.parallelStream().map(SystemUserRole::getRoleId).collect(Collectors.toList());
+        return listByIds(roleIds);
+    }
+
+    /**
+     * @Description 分页获取角色信息
+     * @param page 页码
+     * @param size 条数
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.wyl.xue.system.mybatis.entity.SystemRoles>
+     * @Date 2020/4/13 23:08
+     * @Author wangyl
+     * @Version V1.0
+     */
+    @Override
+    public IPage<SystemRoles> getRolesInfo(Integer page, Integer size) {
+        Page<SystemRoles> pageInfo = new Page<>(page, size);
+        return page(pageInfo);
     }
 }

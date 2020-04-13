@@ -1,7 +1,3 @@
-/**
- * @Author wangyl
- * @E-mail wangyl@dsgdata.com
- **/
 package com.wyl.xue.system.mybatis.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -16,12 +12,12 @@ import com.wyl.xue.system.mybatis.service.SystemUserRoleService;
 import com.wyl.xue.system.mybatis.service.SystemUsersService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.beans.Transient;
 import java.io.Serializable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -91,12 +87,25 @@ public class SystemUsersServiceImpl extends ServiceImpl<SystemUsersMapper, Syste
         return systemUsers.getPassword();
     }
 
+    /**
+     * @Description 设置用户的角色信息
+     * @param id
+     * @param roleIds
+     * @return java.lang.Boolean
+     * @Date 2020/4/13 16:35
+     * @Author wangyl
+     * @Version V1.0
+     */
     @Override
     public Boolean setUserRoles(String id, List<String> roleIds) {
-        //TODO 用户角色表处理 先删除数据 再重新增加
+        /**
+         *用户角色表处理 先删除数据 再重新增加
+         */
         systemUserRoleService.remove(Wrappers.<SystemUserRole>lambdaQuery().eq(SystemUserRole::getUserId, id));
-        return null;
+        List<SystemUserRole> systemUserRoleList = roleIds.parallelStream().map(roleid -> SystemUserRole.builder().roleId(roleid).UserId(id).build()).collect(Collectors.toList());
+        return systemUserRoleService.saveBatch(systemUserRoleList);
     }
+
 
     @Override
     @Transient

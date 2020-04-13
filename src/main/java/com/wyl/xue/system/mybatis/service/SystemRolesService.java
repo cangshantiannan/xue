@@ -1,11 +1,10 @@
 package com.wyl.xue.system.mybatis.service;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.xue.system.mybatis.entity.SystemRoles;
 
-import java.beans.Transient;
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -26,4 +25,15 @@ public interface SystemRolesService extends IService<SystemRoles> {
      * @Version V1.0
      */
     List<SystemRoles> getRolesByUserId(String userId);
+
+    /**
+     * @Description 分页获取角色信息
+     * @param page 页码
+     * @param size 条数
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.wyl.xue.system.mybatis.entity.SystemRoles>
+     * @Date 2020/4/13 23:08
+     * @Author wangyl
+     * @Version V1.0
+     */
+    IPage<SystemRoles> getRolesInfo(Integer page, Integer size);
 }

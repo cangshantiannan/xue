@@ -4,6 +4,7 @@
  **/
 package com.wyl.xue.system.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wyl.xue.system.mybatis.entity.SystemRoles;
 import com.wyl.xue.system.mybatis.service.SystemRolesService;
 import com.wyl.xue.util.result.WebResponse;
@@ -13,6 +14,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @ClassName: RoleController
@@ -39,7 +42,7 @@ public class RoleController {
     @PutMapping(value = "/role/{id}")
     @ApiOperation(value = "修改角色信息")
     public WebResult<Boolean> changeRole(@RequestBody SystemRoles systemRoles) {
-        return WebResponse.WebResponse.ok(systemRolesService.save(systemRoles));
+        return WebResponse.WebResponse.ok(systemRolesService.updateById(systemRoles));
     }
 
     @DeleteMapping(value = "/role/{id}")
@@ -48,4 +51,15 @@ public class RoleController {
         return WebResponse.WebResponse.ok(systemRolesService.removeById(id));
     }
 
+    @GetMapping(value = "/role/{page}/{size}")
+    @ApiOperation(value = "通过用户id 获取该用户下的所有角色")
+    public WebResult<IPage<SystemRoles>> getRolesInfo(@PathVariable Integer page, @PathVariable Integer size) {
+        return WebResponse.WebResponse.ok(systemRolesService.getRolesInfo(page, size));
+    }
+
+    @GetMapping(value = "/role/user/{userid}")
+    @ApiOperation(value = "通过用户id 获取该用户下的所有角色")
+    public WebResult<List<SystemRoles>> getRolesInfoByUserId(@PathVariable String userId) {
+        return WebResponse.WebResponse.ok(systemRolesService.getRolesByUserId(userId));
+    }
 }

@@ -12,9 +12,7 @@ import com.wyl.xue.util.result.WebResponse;
 import com.wyl.xue.util.result.WebResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
-import org.omg.CORBA.INTERNAL;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +20,7 @@ import java.util.List;
 
 /**
  * @ClassName: DepartmentController
- * @Function: 
+ * @Function: 完成部门所需接口开发
  * @Date: 2019/12/23 22:12
  * @author wyl
  * @version V1.0
