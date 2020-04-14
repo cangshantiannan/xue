@@ -12,23 +12,21 @@ import com.wyl.xue.util.result.WebResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
  * @ClassName: RoleController
- * @Function: TODO
+ * @Function: 角色信息接口
  * @Date: 2019/12/23 22:12
  * @author wyl
  * @version V1.0
  */
-@Controller
 @RequestMapping("/v1")
 @Api(tags = {"角色信息接口"})
 @AllArgsConstructor
-@ResponseBody
+@RestController
 public class RoleController {
 
     final SystemRolesService systemRolesService;
@@ -52,7 +50,7 @@ public class RoleController {
     }
 
     @GetMapping(value = "/role/{page}/{size}")
-    @ApiOperation(value = "通过用户id 获取该用户下的所有角色")
+    @ApiOperation(value = "获取所有角色信息")
     public WebResult<IPage<SystemRoles>> getRolesInfo(@PathVariable Integer page, @PathVariable Integer size) {
         return WebResponse.WebResponse.ok(systemRolesService.getRolesInfo(page, size));
     }

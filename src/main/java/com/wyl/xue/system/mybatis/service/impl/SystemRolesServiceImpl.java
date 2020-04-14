@@ -41,6 +41,7 @@ public class SystemRolesServiceImpl extends ServiceImpl<SystemRolesMapper, Syste
     @Transient
     public boolean removeById(Serializable id) {
         if (systemUserRoleService.list(Wrappers.<SystemUserRole>lambdaQuery().eq(SystemUserRole::getRoleId, id)).isEmpty()) {
+            //TODO 删除菜单角色关联
             systemRoleMenuService.remove(Wrappers.<SystemRoleMenu>lambdaQuery().eq(SystemRoleMenu::getRoleId, id));
             return super.removeById(id);
         }

@@ -13,7 +13,6 @@ import com.wyl.xue.util.result.WebResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,11 +24,10 @@ import java.util.List;
  * @author wyl
  * @version V1.0
  */
-@Controller
 @RequestMapping("/v1")
 @Api(tags = {"部门信息接口"})
 @AllArgsConstructor
-@ResponseBody
+@RestController
 public class DepartmentController {
 
     final private SystemDepartmentService systemDepartmentService;

@@ -33,19 +33,10 @@ public class SystemMenuServiceImpl extends ServiceImpl<SystemMenuMapper, SystemM
 
     final SystemUsersService systemUsersService;
 
-    @Override
-    public List<MenuTree> getMenuTree() {
-        List<SystemMenu> systemMenuList = this.list();
-        List<MenuTree> menuTreeList = new ArrayList<>();
-        systemMenuList.stream().forEach(systemMenu -> {
-            MenuTree menuTree = new MenuTree(systemMenu.getMenuId(), systemMenu.getParentId(), systemMenu.getMenuName());
-            menuTreeList.add(menuTree);
-        });
-        return TreeUtil.bulid(menuTreeList, "-1", null);
-    }
 
     @Override
     public boolean removeById(Serializable id) {
+        //TODO
         List<SystemMenu> systemMenuList = this.list(Wrappers.<SystemMenu>lambdaQuery().eq(SystemMenu::getParentId, id));
         if (systemMenuList.isEmpty() && systemUsersService.getSystemUsersByDepartmentId(id.toString()).isEmpty()) {
             return super.removeById(id);
@@ -53,5 +44,23 @@ public class SystemMenuServiceImpl extends ServiceImpl<SystemMenuMapper, SystemM
             log.error("该节点有相关数据无法删除[{}]", id);
             throw new BizException(ResultCode.HAVERESOURCES);
         }
+    }
+
+    /**
+     * @Description 获取所有非按钮的菜单，组装为树的形式
+     * @return java.util.List<com.wyl.xue.system.vo.MenuTree>
+     * @Date 2020/4/14 23:42
+     * @Author wangyl
+     * @Version V1.0
+     */
+    @Override
+    public List<MenuTree> getMenuTree() {
+        List<SystemMenu> systemMenuList = this.list(Wrappers.<SystemMenu>lambdaQuery().ne(SystemMenu::getType, 2));
+        List<MenuTree> menuTreeList = new ArrayList<>();
+        systemMenuList.stream().forEach(systemMenu -> {
+            MenuTree menuTree = new MenuTree(systemMenu.getMenuId(), systemMenu.getParentId(), systemMenu.getMenuName());
+            menuTreeList.add(menuTree);
+        });
+        return TreeUtil.bulid(menuTreeList, "-1", null);
     }
 }
