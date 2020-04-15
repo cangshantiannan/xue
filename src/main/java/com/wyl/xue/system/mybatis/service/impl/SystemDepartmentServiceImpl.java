@@ -7,12 +7,16 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wyl.xue.system.mybatis.entity.SystemDepartment;
 import com.wyl.xue.system.mybatis.mapper.SystemDepartmentMapper;
 import com.wyl.xue.system.mybatis.service.SystemDepartmentService;
+import com.wyl.xue.system.mybatis.service.SystemUsersService;
 import com.wyl.xue.system.vo.DepartmentTree;
+import com.wyl.xue.util.exception.BizException;
+import com.wyl.xue.util.result.ResultCode;
 import com.wyl.xue.util.tree.TreeUtil;
-import io.swagger.models.auth.In;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +30,10 @@ import java.util.List;
  */
 @Service
 @Slf4j
+@AllArgsConstructor
 public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMapper, SystemDepartment> implements SystemDepartmentService {
 
+    final SystemUsersService systemUsersService;
 
     /**
      * @Description 获取部门的树形信息
@@ -76,5 +82,14 @@ public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMap
         Page<SystemDepartment> pageInfo = new Page<>(page, size);
         IPage<SystemDepartment> systemDepartmentPage = this.page(pageInfo, Wrappers.<SystemDepartment>lambdaQuery().eq(SystemDepartment::getParentId, id));
         return systemDepartmentPage;
+    }
+
+    @Override
+    public boolean removeById(Serializable id) {
+        if (systemUsersService.getSystemUsersByDepartmentId(id.toString()).isEmpty()) {
+            return super.removeById(id);
+        } else {
+            throw new BizException(ResultCode.HAVERESOURCES);
+        }
     }
 }

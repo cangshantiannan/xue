@@ -60,4 +60,6 @@ public class RoleController {
     public WebResult<List<SystemRoles>> getRolesInfoByUserId(@PathVariable String userId) {
         return WebResponse.WebResponse.ok(systemRolesService.getRolesByUserId(userId));
     }
+
+    //TODO 角色和菜单关联
 }

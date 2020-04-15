@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wyl.xue.system.mybatis.entity.SystemMenu;
 import com.wyl.xue.system.mybatis.mapper.SystemMenuMapper;
 import com.wyl.xue.system.mybatis.service.SystemMenuService;
+import com.wyl.xue.system.mybatis.service.SystemRoleMenuService;
 import com.wyl.xue.system.mybatis.service.SystemUsersService;
 import com.wyl.xue.system.vo.MenuTree;
 import com.wyl.xue.util.exception.BizException;
@@ -32,13 +33,13 @@ import java.util.List;
 public class SystemMenuServiceImpl extends ServiceImpl<SystemMenuMapper, SystemMenu> implements SystemMenuService {
 
     final SystemUsersService systemUsersService;
-
+    final SystemRoleMenuService systemRoleMenuService;
 
     @Override
     public boolean removeById(Serializable id) {
         //TODO
         List<SystemMenu> systemMenuList = this.list(Wrappers.<SystemMenu>lambdaQuery().eq(SystemMenu::getParentId, id));
-        if (systemMenuList.isEmpty() && systemUsersService.getSystemUsersByDepartmentId(id.toString()).isEmpty()) {
+        if (systemMenuList.isEmpty() && systemRoleMenuService.getSystemRoleMenuByMenuId(id.toString()).isEmpty()) {
             return super.removeById(id);
         } else {
             log.error("该节点有相关数据无法删除[{}]", id);

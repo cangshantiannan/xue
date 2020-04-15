@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.xue.system.mybatis.entity.SystemDepartment;
 import com.wyl.xue.system.vo.DepartmentTree;
-import io.swagger.models.auth.In;
 
 import java.util.List;
 

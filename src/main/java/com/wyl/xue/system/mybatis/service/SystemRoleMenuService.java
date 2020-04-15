@@ -12,4 +12,14 @@ import java.util.List;
  * @author wangyl
  * @version V1.0
  */
-public interface SystemRoleMenuService extends IService<SystemRoleMenu> {}
+public interface SystemRoleMenuService extends IService<SystemRoleMenu> {
+    /**
+     * @Description 通过菜单ID 获取和该菜单有关联的角色列表
+     * @param menuId
+     * @return java.util.List<com.wyl.xue.system.mybatis.entity.SystemRoleMenu>
+     * @Date 2020/4/15 23:10
+     * @Author wangyl
+     * @Version V1.0
+     */
+    List<SystemRoleMenu> getSystemRoleMenuByMenuId(String menuId);
+}
