@@ -23,7 +23,7 @@ import java.util.List;
 
 /**
  * @ClassName: SystemDepartmentServiceImpl
- * @Function: TODO
+ * @Function: 部门
  * @Date: 2019/12/18 22:11
  * @author wyl
  * @version V1.0

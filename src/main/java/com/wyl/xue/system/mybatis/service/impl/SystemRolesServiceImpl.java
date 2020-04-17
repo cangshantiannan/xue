@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 
 /**
  * @ClassName: SystemRolesServiceImpl
- * @Function: TODO
+ * @Function: 角色
  * @Date: 2019/12/18 22:14
  * @author wyl
  * @version V1.0
@@ -41,11 +41,13 @@ public class SystemRolesServiceImpl extends ServiceImpl<SystemRolesMapper, Syste
     @Transient
     public boolean removeById(Serializable id) {
         if (systemUserRoleService.list(Wrappers.<SystemUserRole>lambdaQuery().eq(SystemUserRole::getRoleId, id)).isEmpty()) {
-            //TODO 删除菜单角色关联
+            /**
+             *删除菜单角色关联
+             */
             systemRoleMenuService.remove(Wrappers.<SystemRoleMenu>lambdaQuery().eq(SystemRoleMenu::getRoleId, id));
             return super.removeById(id);
         }
-        log.error("该节点ID[{}]还有先关资源没有被删除", id);
+        log.error("该节点ID[{}]还有先关资源没有被删除", id.toString());
         throw new BizException(ResultCode.HAVERESOURCES);
     }
 
@@ -77,5 +79,21 @@ public class SystemRolesServiceImpl extends ServiceImpl<SystemRolesMapper, Syste
     public IPage<SystemRoles> getRolesInfo(Integer page, Integer size) {
         Page<SystemRoles> pageInfo = new Page<>(page, size);
         return page(pageInfo);
+    }
+
+    /**
+     * @Description 设置角色菜单信息
+     * @param id 角色ID
+     * @param menuIds 菜单列表
+     * @return java.lang.Boolean
+     * @Date 2020/4/16 22:19
+     * @Author wangyl
+     * @Version V1.0
+     */
+    @Override
+    public Boolean setRoleMenus(String id, List<String> menuIds) {
+        systemRoleMenuService.remove(Wrappers.<SystemRoleMenu>lambdaQuery().eq(SystemRoleMenu::getRoleId, id));
+        List<SystemRoleMenu> systemRoleMenus = menuIds.parallelStream().map(menuId -> SystemRoleMenu.builder().menuId(menuId).roleId(id).build()).collect(Collectors.toList());
+        return systemRoleMenuService.saveBatch(systemRoleMenus);
     }
 }

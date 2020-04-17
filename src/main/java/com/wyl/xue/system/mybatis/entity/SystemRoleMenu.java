@@ -16,7 +16,7 @@ import lombok.Data;
 @Data
 @Builder
 @TableName("system_role_menu")
-public class SystemRoleMenu extends SystemBase   {
+public class SystemRoleMenu extends SystemBase {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,6 +34,6 @@ public class SystemRoleMenu extends SystemBase   {
     /**
      * 菜单ID
      */
-    private Integer menuId;
+    private String menuId;
 
 }

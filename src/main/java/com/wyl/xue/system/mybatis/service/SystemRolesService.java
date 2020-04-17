@@ -36,4 +36,16 @@ public interface SystemRolesService extends IService<SystemRoles> {
      * @Version V1.0
      */
     IPage<SystemRoles> getRolesInfo(Integer page, Integer size);
+
+
+    /**
+     * @Description 设置角色菜单信息
+     * @param id 角色ID
+     * @param menuIds 菜单列表
+     * @return java.lang.Boolean
+     * @Date 2020/4/16 22:19
+     * @Author wangyl
+     * @Version V1.0
+     */
+    Boolean setRoleMenus(String id, List<String> menuIds);
 }

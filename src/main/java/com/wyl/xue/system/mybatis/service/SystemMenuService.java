@@ -23,4 +23,14 @@ public interface SystemMenuService extends IService<SystemMenu> {
      * @Version V1.0
      */
     List<MenuTree> getMenuTree();
+
+    /**
+     * @Description 通过Id获取该菜单下的所有按钮
+     * @param id
+     * @return java.util.List<com.wyl.xue.system.mybatis.entity.SystemMenu>
+     * @Date 2020/4/16 22:54
+     * @Author wangyl
+     * @Version V1.0
+     */
+    List<SystemMenu> getMenusById(String id);
 }

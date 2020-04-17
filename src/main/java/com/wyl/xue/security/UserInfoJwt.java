@@ -15,7 +15,7 @@ import java.util.Map;
 
 /**
  * @ClassName: UserInfoJwt
- * @Function: TODO
+ * @Function: 用户JWT
  * @Date: 2019/12/17 20:21
  * @author wyl
  * @version V1.0
@@ -102,10 +102,10 @@ public class UserInfoJwt {
     }
 
     /**
-     * @Description 从token中返回用户信息
+     * @Description 判断是否过期
      * @param token
-     * @return java.util.Map
-     * @Date 2019/12/17 20:46
+     * @return java.lang.Boolean
+     * @Date 2020/4/16 23:22
      * @Author wangyl
      * @Version V1.0
      */

@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  * @ClassName: MenuController
- * @Function: TODO
+ * @Function: 菜单接口
  * @Date: 2019/12/23 22:13
  * @author wyl
  * @version V1.0
@@ -56,4 +56,9 @@ public class MenuController {
         return WebResponse.WebResponse.ok(systemMenuService.removeById(id));
     }
 
+    @GetMapping(value = "/menus/{id}")
+    @ApiOperation(value = "获取指定菜单下的所有按钮")
+    public WebResult<List<SystemMenu>> getMenusById(@PathVariable String id) {
+        return WebResponse.WebResponse.ok(systemMenuService.getMenusById(id));
+    }
 }

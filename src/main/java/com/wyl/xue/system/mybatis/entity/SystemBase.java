@@ -7,20 +7,18 @@ package com.wyl.xue.system.mybatis.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
  * @ClassName: SystemBase
- * @Function: TODO
+ * @Function: 基础表
  * @Date: 2020/4/12 17:08
  * @author wyl
  * @version V1.0
  */
 @Data
-@EqualsAndHashCode
 public class SystemBase implements Serializable {
     /**
      * 创建时间
@@ -35,5 +33,6 @@ public class SystemBase implements Serializable {
     /**
      * 删除标记
      */
+    @TableField(fill = FieldFill.INSERT)
     private Integer deleteFlage;
 }

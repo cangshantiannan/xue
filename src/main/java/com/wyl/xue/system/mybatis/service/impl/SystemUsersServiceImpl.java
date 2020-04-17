@@ -10,8 +10,9 @@ import com.wyl.xue.system.mybatis.mapper.SystemUsersMapper;
 import com.wyl.xue.system.mybatis.service.SystemDepartmentService;
 import com.wyl.xue.system.mybatis.service.SystemUserRoleService;
 import com.wyl.xue.system.mybatis.service.SystemUsersService;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.beans.Transient;
@@ -22,18 +23,25 @@ import java.util.stream.Collectors;
 
 /**
  * @ClassName: SystemUsersServiceImpl
- * @Function: TODO
+ * @Function: 用户
  * @Date: 2019/12/18 22:10
  * @author wyl
  * @version V1.0
  */
 @Service
 @Slf4j
-@AllArgsConstructor
 public class SystemUsersServiceImpl extends ServiceImpl<SystemUsersMapper, SystemUsers> implements SystemUsersService {
 
-    final SystemDepartmentService systemDepartmentService;
-    final SystemUserRoleService systemUserRoleService;
+    /**
+     * 会有循环依赖问题
+     */
+    @Autowired
+    @Lazy
+    SystemDepartmentService systemDepartmentService;
+
+    @Autowired
+    @Lazy
+    SystemUserRoleService systemUserRoleService;
 
     /**
      * @Description 通过部门id获取该部门下的所有用户 包含子部门

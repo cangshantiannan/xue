@@ -38,9 +38,4 @@ public class SystemRoles extends SystemBase{
      */
     private String roleDescription;
 
-    /**
-     * 删除标识（1-正常,0-删除）
-     */
-    private Boolean delFlag;
-
 }

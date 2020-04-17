@@ -61,5 +61,9 @@ public class RoleController {
         return WebResponse.WebResponse.ok(systemRolesService.getRolesByUserId(userId));
     }
 
-    //TODO 角色和菜单关联
+    @PostMapping(value = "/role/menus/{id}")
+    @ApiOperation(value = "设置角色的菜单信息")
+    public WebResult<Boolean> setRoleMenus(@PathVariable String id, @RequestBody List<String> menuIds) {
+        return WebResponse.WebResponse.ok(systemRolesService.setRoleMenus(id, menuIds));
+    }
 }

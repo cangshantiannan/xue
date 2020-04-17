@@ -28,10 +28,6 @@ public class SystemDepartment extends SystemBase {
      */
     private String departmentName;
 
-    /**
-     * 是否删除  0：已删除  1：正常
-     */
-    private Boolean delFlag;
 
     /**
      * 上级部门
