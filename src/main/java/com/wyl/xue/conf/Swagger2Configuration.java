@@ -27,7 +27,7 @@ import java.util.List;
 public class Swagger2Configuration {
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().apis(RequestHandlerSelectors.withClassAnnotation(Api.class)).paths(PathSelectors.any()).build();//.securitySchemes(this.securitySchemes()).securityContexts(securityContexts());
+        return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo()).select().apis(RequestHandlerSelectors.withClassAnnotation(Api.class)).paths(PathSelectors.any()).build().securitySchemes(this.securitySchemes()).securityContexts(securityContexts());
     }
 
     private ApiInfo apiInfo() {

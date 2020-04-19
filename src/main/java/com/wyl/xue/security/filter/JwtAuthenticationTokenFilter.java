@@ -5,6 +5,7 @@
 package com.wyl.xue.security.filter;
 
 import cn.hutool.core.util.ObjectUtil;
+import com.wyl.xue.security.UserInfoJwt;
 import com.wyl.xue.security.user.SecurityUserInfo;
 import com.wyl.xue.system.mybatis.service.SystemUsersService;
 import lombok.AllArgsConstructor;
@@ -21,8 +22,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Set;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName: JwtAuthenticationTokenFilter
@@ -39,14 +41,13 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-
-        //TODO 从token中获取用户信息
-        SecurityUserInfo securityUser = null;
-        //jwtUtil.getUserFromToken(httpServletRequest);
-        if (ObjectUtil.isNotNull(securityUser)) {
-            //TODO获取该用户所有权限
-            Set<String> permissions = null;//systemUsersService.findPermsByUserId(securityUser.getUserId());
-            Collection<? extends GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(permissions.toArray(new String[0]));
+        String token = UserInfoJwt.getToken(httpServletRequest);
+        if (ObjectUtil.isNotNull(token)) {
+            Map UserInfo = UserInfoJwt.UserInfo(token);
+            SecurityUserInfo securityUser = new SecurityUserInfo(UserInfo.get("sub").toString(), UserInfo.get("userid").toString(), null, null);
+            List<Map> permissions = (List<Map>) UserInfo.get("authorities");
+            List<Object> authority = permissions.parallelStream().map(permission -> permission.get("authority")).collect(Collectors.toList());
+            List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(authority.toArray(new String[0]));
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(securityUser, null, authorities);
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);

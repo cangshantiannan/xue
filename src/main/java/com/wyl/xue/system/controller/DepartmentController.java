@@ -13,6 +13,7 @@ import com.wyl.xue.util.result.WebResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,6 +34,7 @@ public class DepartmentController {
     final private SystemDepartmentService systemDepartmentService;
 
     @PostMapping(value = "/department")
+    @PreAuthorize("hasAuthority('sys:dept:add')")
     @ApiOperation(value = "添加部门接口", notes = "添加部门接口")
     public WebResult<Boolean> addDepartment(@RequestBody SystemDepartment systemDepartment) {
         return WebResponse.WebResponse.ok(systemDepartmentService.save(systemDepartment));
@@ -40,12 +42,14 @@ public class DepartmentController {
 
     @PutMapping(value = "/department/{id}")
     @ApiOperation(value = "修改部门信息接口", notes = "修改部门信息接口")
+    @PreAuthorize("hasAuthority('sys:dept:update')")
     public WebResult<Boolean> changeDepartment(@RequestBody SystemDepartment systemDepartment) {
         return WebResponse.WebResponse.ok(systemDepartmentService.updateById(systemDepartment));
     }
 
     @DeleteMapping(value = "/department/{id}")
     @ApiOperation(value = "删除部门信息", notes = "根据部门ID删除指定部门")
+    @PreAuthorize("hasAuthority('sys:dept:del')")
     public WebResult<Boolean> deleteDepartment(@PathVariable String id) {
         return WebResponse.WebResponse.ok(systemDepartmentService.removeById(id));
     }

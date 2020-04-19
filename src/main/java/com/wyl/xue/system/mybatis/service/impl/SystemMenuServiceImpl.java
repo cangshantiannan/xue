@@ -80,7 +80,7 @@ public class SystemMenuServiceImpl extends ServiceImpl<SystemMenuMapper, SystemM
     public List<SystemMenu> getMenusById(String id) {
         Map<SFunction<SystemMenu, ?>, Object> params = new HashMap<>();
         params.put(SystemMenu::getParentId, id);
-        params.put(SystemMenu::getType, 3);
+        params.put(SystemMenu::getType, 2);
         LambdaQueryWrapper<SystemMenu> systemMenuLambdaQueryWrapper = Wrappers.<SystemMenu>lambdaQuery().allEq(params);
         return this.list(systemMenuLambdaQueryWrapper);
     }

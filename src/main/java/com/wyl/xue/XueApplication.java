@@ -7,6 +7,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.ApplicationPidFileWriter;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
  * @author wyl
@@ -44,5 +46,18 @@ public class XueApplication {
          */
         paginationInterceptor.setCountSqlParser(new JsqlParserCountOptimize(true));
         return paginationInterceptor;
+    }
+
+    /**
+     * @Description 密码加密对象
+     * @param
+     * @return org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+     * @Date 2019/12/22 17:48
+     * @Author wangyl
+     * @Version V1.0
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

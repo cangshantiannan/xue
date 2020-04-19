@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.xue.system.mybatis.entity.SystemUsers;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @ClassName: SystemUsersService
@@ -54,5 +55,37 @@ public interface SystemUsersService extends IService<SystemUsers> {
      * @Version V1.0
      */
     Boolean setUserRoles(String id, List<String> roleIds);
+
+    /**
+     * @Description 通过用户名获取用户信息
+     * @param name
+     * @return com.wyl.xue.system.mybatis.entity.SystemUsers
+     * @Date 2020/4/18 0:16
+     * @Author wangyl
+     * @Version V1.0
+     */
+    SystemUsers getSystemUser(String name);
+
+    /**
+     * @Description 通过用户ID 获取用户权限
+     * @param userId
+     * @return java.util.Set<java.lang.String>
+     * @Date 2020/4/18 0:27
+     * @Author wangyl
+     * @Version V1.0
+     */
+    Set<String> getSystemPermissions(String userId);
+
+
+    /**
+     * @Description 用户登录
+     * @param userName 用户名
+     * @param password 密码
+     * @return java.lang.String
+     * @Date 2020/4/18 23:59
+     * @Author wangyl
+     * @Version V1.0
+     */
+    String login(String userName, String password);
 }
 

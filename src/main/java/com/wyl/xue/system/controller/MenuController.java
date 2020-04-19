@@ -12,6 +12,7 @@ import com.wyl.xue.util.result.WebResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,12 +34,14 @@ public class MenuController {
 
     @PostMapping(value = "/menu")
     @ApiOperation(value = "新增菜单信息", notes = "根据菜单信息新增菜单")
+//    @PreAuthorize("hasAuthority('sys:menu:add')")
     public WebResult<Boolean> addMenu(@RequestBody SystemMenu systemMenu) {
         return WebResponse.WebResponse.ok(systemMenuService.save(systemMenu));
     }
 
     @PutMapping(value = "/menu")
     @ApiOperation(value = "更新菜单信息", notes = "根据菜单信息更新菜单")
+    @PreAuthorize("hasAuthority('sys:menu:update')")
     public WebResult<Boolean> changeMenu(@RequestBody SystemMenu systemMenu) {
         return WebResponse.WebResponse.ok(systemMenuService.updateById(systemMenu));
     }
@@ -52,6 +55,7 @@ public class MenuController {
 
     @DeleteMapping(value = "/menu/{id}")
     @ApiOperation(value = "删除菜单信息", notes = "根据菜单id删除指定菜单")
+    @PreAuthorize("hasAuthority('sys:menu:del')")
     public WebResult<Boolean> deleteMenu(@PathVariable String id) {
         return WebResponse.WebResponse.ok(systemMenuService.removeById(id));
     }

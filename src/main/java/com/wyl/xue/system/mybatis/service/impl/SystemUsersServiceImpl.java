@@ -1,23 +1,32 @@
 package com.wyl.xue.system.mybatis.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wyl.xue.security.UserInfoJwt;
+import com.wyl.xue.security.user.SecurityUserInfo;
+import com.wyl.xue.system.mybatis.entity.SystemRoles;
 import com.wyl.xue.system.mybatis.entity.SystemUserRole;
 import com.wyl.xue.system.mybatis.entity.SystemUsers;
 import com.wyl.xue.system.mybatis.mapper.SystemUsersMapper;
-import com.wyl.xue.system.mybatis.service.SystemDepartmentService;
-import com.wyl.xue.system.mybatis.service.SystemUserRoleService;
-import com.wyl.xue.system.mybatis.service.SystemUsersService;
+import com.wyl.xue.system.mybatis.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.beans.Transient;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 
@@ -42,6 +51,22 @@ public class SystemUsersServiceImpl extends ServiceImpl<SystemUsersMapper, Syste
     @Autowired
     @Lazy
     SystemUserRoleService systemUserRoleService;
+
+
+    @Autowired
+    @Lazy
+    SystemRolesService systemRolesService;
+
+    @Autowired
+    @Lazy
+    SystemRoleMenuService systemRoleMenuService;
+    @Autowired
+    @Lazy
+    AuthenticationManager authenticationManager;
+
+    @Autowired
+    @Lazy
+    PasswordEncoder passwordEncoder;
 
     /**
      * @Description 通过部门id获取该部门下的所有用户 包含子部门
@@ -114,6 +139,74 @@ public class SystemUsersServiceImpl extends ServiceImpl<SystemUsersMapper, Syste
         return systemUserRoleService.saveBatch(systemUserRoleList);
     }
 
+    /**
+     * @Description 通过用户名获取用户信息
+     * @param name
+     * @return com.wyl.xue.system.mybatis.entity.SystemUsers
+     * @Date 2020/4/18 0:16
+     * @Author wangyl
+     * @Version V1.0
+     */
+    @Override
+    public SystemUsers getSystemUser(String name) {
+        LambdaQueryWrapper<SystemUsers> systemUsersLambdaQueryWrapper = Wrappers.<SystemUsers>lambdaQuery().eq(SystemUsers::getUsername, name);
+        return this.getOne(systemUsersLambdaQueryWrapper);
+    }
+
+    /**
+     * @Description 通过用户ID 获取用户权限
+     * @param userId
+     * @return java.util.Set<java.lang.String>
+     * @Date 2020/4/18 0:27
+     * @Author wangyl
+     * @Version V1.0
+     */
+    @Override
+    public Set<String> getSystemPermissions(String userId) {
+        List<SystemRoles> rolesList = systemRolesService.getRolesByUserId(userId);
+        List<String> roles = rolesList.parallelStream().map(SystemRoles::getId).collect(Collectors.toList());
+        if (roles.isEmpty()) {
+            return new TreeSet<>();
+        } else {
+            Set<String> permSet = rolesList.parallelStream().map(SystemRoles::getRoleCode).collect(Collectors.toSet());
+            permSet.addAll(systemRoleMenuService.getPermByRoleIds(roles));
+            return permSet;
+        }
+    }
+
+    /**
+     * @Description 用户登录
+     * @param userName 用户名
+     * @param password 密码
+     * @return java.lang.String
+     * @Date 2020/4/18 23:59
+     * @Author wangyl
+     * @Version V1.0
+     */
+    @Override
+    public String login(String userName, String password) {
+        //用户验证
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, password));
+        //存储认证信息
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        //生成token
+        SecurityUserInfo userDetail = (SecurityUserInfo) authentication.getPrincipal();
+        return UserInfoJwt.generateUserInfoToken(userDetail.getUsername(), userDetail.getAuthorities(), userDetail.getUserId());
+    }
+
+    @Override
+    public boolean save(SystemUsers entity) {
+        String password = entity.getPassword();
+        entity.setPassword(passwordEncoder.encode(password));
+        return super.save(entity);
+    }
+
+    @Override
+    public boolean updateById(SystemUsers entity) {
+        String password = entity.getPassword();
+        entity.setPassword(passwordEncoder.encode(password));
+        return super.updateById(entity);
+    }
 
     @Override
     @Transient

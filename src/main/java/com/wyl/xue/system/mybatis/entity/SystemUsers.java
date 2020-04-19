@@ -36,7 +36,7 @@ public class SystemUsers extends SystemBase {
     /**
      * 部门ID
      */
-    private Integer departmentId;
+    private String departmentId;
 
     /**
      * 邮箱

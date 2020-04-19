@@ -3,7 +3,6 @@ package com.wyl.xue.security.user;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,13 +18,12 @@ import java.util.List;
  */
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
 public class SecurityUserInfo implements UserDetails {
     /**
      * 用户id
      */
-    private Integer userId;
+    private String userId;
     /**
      * 用户名
      */
@@ -55,7 +53,7 @@ public class SecurityUserInfo implements UserDetails {
      */
     private List<GrantedAuthority> authorities;
 
-    public SecurityUserInfo(Integer userId, String username, String password, List<GrantedAuthority> authorities) {
+    public SecurityUserInfo(String userId, String username, String password, List<GrantedAuthority> authorities) {
         this(userId, username, password, true, true, true, true, authorities);
     }
 

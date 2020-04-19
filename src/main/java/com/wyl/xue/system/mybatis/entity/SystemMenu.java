@@ -44,9 +44,4 @@ public class SystemMenu extends SystemBase {
      */
     private Integer type;
 
-    /**
-     * 逻辑删除标记(1--正常 0--删除)
-     */
-    private Boolean delFlag;
-
 }

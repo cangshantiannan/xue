@@ -26,23 +26,23 @@ public class UserInfoJwt {
     /**
      * 用户名称
      */
-    public static final String USERNAME = "sub";
+    private static final String USERNAME = "sub";
     /**
      * 创建时间
      */
-    public static final String CREATED = "created";
+    private static final String CREATED = "created";
     /**
      * 权限列表
      */
-    public static final String AUTHORITIES = "authorities";
+    private static final String AUTHORITIES = "authorities";
 
     /**
      * 用户ID
      */
-    public static final String USERID = "userid";
+    private static final String USERID = "userid";
 
 
-    final static private String TOKENHEADER = "Bearer";
+    final static private String TOKENHEADER = "Bearer ";
 
     final static private String AUTHTOKENSTART = "Authorization";
 
@@ -97,7 +97,6 @@ public class UserInfoJwt {
         if (StringUtils.isEmpty(token)) {
             return null;
         }
-        token = token.substring(TOKENHEADER.length());
         return tokenUtilBase.getClaimsFromToken(token);
     }
 
@@ -122,10 +121,12 @@ public class UserInfoJwt {
      * @Author wangyl
      * @Version V1.0
      */
-    private String getToken(@Nullable HttpServletRequest request) {
-        String token = request.getHeader(TOKENHEADER);
-        if (StringUtils.isEmpty(token)) {
-            token = token.substring(AUTHTOKENSTART.length());
+    public static String getToken(@Nullable HttpServletRequest request) {
+        String token = request.getHeader(AUTHTOKENSTART);
+        if (!StringUtils.isEmpty(token)) {
+            token = token.substring(TOKENHEADER.length());
+        } else {
+            return null;
         }
         return token;
     }

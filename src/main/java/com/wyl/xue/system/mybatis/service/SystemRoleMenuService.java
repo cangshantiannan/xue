@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.xue.system.mybatis.entity.SystemRoleMenu;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * @ClassName: SystemRoleMenuService
@@ -22,4 +23,14 @@ public interface SystemRoleMenuService extends IService<SystemRoleMenu> {
      * @Version V1.0
      */
     List<SystemRoleMenu> getSystemRoleMenuByMenuId(String menuId);
+
+    /**
+     * @Description 通过角色ids 获取所有权限
+     * @param ids
+     * @return java.util.Set<java.lang.String>
+     * @Date 2020/4/19 1:44
+     * @Author wangyl
+     * @Version V1.0
+     */
+    Set<String> getPermByRoleIds(List<String> ids);
 }
