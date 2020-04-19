@@ -1,5 +1,6 @@
 package com.wyl.xue.system.mybatis.service.impl;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -32,6 +33,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 @Slf4j
+@DS("master")
 public class SystemRolesServiceImpl extends ServiceImpl<SystemRolesMapper, SystemRoles> implements SystemRolesService {
     final SystemRoleMenuService systemRoleMenuService;
     final SystemUserRoleService systemUserRoleService;

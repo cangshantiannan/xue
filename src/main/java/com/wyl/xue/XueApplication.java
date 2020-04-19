@@ -14,7 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * @author wyl
  */
 @SpringBootApplication
-@MapperScan("com.wyl.xue.system.mybatis.mapper")
+@MapperScan({"com.wyl.xue.system.mybatis.mapper", "com.wyl.xue.modle.test.mybatis.mapper"})
 public class XueApplication {
     public static void main(String[] args) {
         SpringApplication sa = new SpringApplication(XueApplication.class);

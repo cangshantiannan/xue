@@ -1,5 +1,6 @@
 package com.wyl.xue.system.mybatis.service.impl;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wyl.xue.system.mybatis.entity.SystemUserRole;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
+@DS("master")
 public class SystemUserRoleServiceImpl extends ServiceImpl<SystemUserRoleMapper, SystemUserRole> implements SystemUserRoleService {
 
     /**

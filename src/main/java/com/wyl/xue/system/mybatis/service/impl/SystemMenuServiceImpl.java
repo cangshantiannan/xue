@@ -1,5 +1,6 @@
 package com.wyl.xue.system.mybatis.service.impl;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
@@ -34,6 +35,7 @@ import java.util.Map;
 @Service
 @Slf4j
 @AllArgsConstructor
+@DS("master")
 public class SystemMenuServiceImpl extends ServiceImpl<SystemMenuMapper, SystemMenu> implements SystemMenuService {
 
     final SystemUsersService systemUsersService;

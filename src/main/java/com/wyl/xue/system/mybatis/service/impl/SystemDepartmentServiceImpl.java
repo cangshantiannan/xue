@@ -1,5 +1,6 @@
 package com.wyl.xue.system.mybatis.service.impl;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -31,6 +32,7 @@ import java.util.List;
 @Service
 @Slf4j
 @AllArgsConstructor
+@DS("master")
 public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMapper, SystemDepartment> implements SystemDepartmentService {
 
     final SystemUsersService systemUsersService;
