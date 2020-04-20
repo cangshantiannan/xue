@@ -20,4 +20,5 @@ import lombok.Data;
 public class Test extends SystemBase {
     @TableId(value = "id", type = IdType.ASSIGN_UUID)
     private String id;
+    private String name;
 }
