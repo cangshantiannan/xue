@@ -1,0 +1,120 @@
+[2020-04-23 15:22:50.050] [org.springframework.core.KotlinDetector] [main] [57] [INFO ] Kotlin reflection implementation not found at runtime, related features won't be available.
+[2020-04-23 15:22:50.050] [org.springframework.boot.StartupInfoLogger] [main] [55] [INFO ] Starting XueBackgroundApplication on DESKTOP-5BFD124 with PID 13512 (E:\mygit\xue\xue-background\target\classes started by wyl in E:\mygit\xue)
+[2020-04-23 15:22:50.050] [org.springframework.boot.SpringApplication] [main] [655] [INFO ] The following profiles are active: home
+[2020-04-23 15:22:51.051] [org.springframework.core.log.CompositeLog] [background-preinit] [127] [WARN ] For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+[2020-04-23 15:22:52.052] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:22:52.052] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$e023eb20] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:22:52.052] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:22:52.052] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:22:52.052] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:22:52.052] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:22:52.052] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@5740ff5e' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:22:52.052] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:22:52.052] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:22:53.053] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [main] [92] [INFO ] Tomcat initialized with port(s): 8081 (http)
+[2020-04-23 15:22:53.053] [org.apache.juli.logging.DirectJDKLog] [main] [173] [INFO ] Initializing ProtocolHandler ["http-nio-8081"]
+[2020-04-23 15:22:53.053] [org.apache.juli.logging.DirectJDKLog] [main] [173] [INFO ] Starting service [Tomcat]
+[2020-04-23 15:22:53.053] [org.apache.juli.logging.DirectJDKLog] [main] [173] [INFO ] Starting Servlet engine: [Apache Tomcat/9.0.31]
+[2020-04-23 15:22:53.053] [org.apache.juli.logging.DirectJDKLog] [main] [173] [INFO ] Initializing Spring embedded WebApplicationContext
+[2020-04-23 15:22:53.053] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] [main] [284] [INFO ] Root WebApplicationContext: initialization completed in 2153 ms
+[2020-04-23 15:22:53.053] [com.zaxxer.hikari.HikariDataSource] [main] [80] [INFO ] master - Starting...
+[2020-04-23 15:22:54.054] [com.zaxxer.hikari.HikariDataSource] [main] [82] [INFO ] master - Start completed.
+[2020-04-23 15:22:54.054] [com.zaxxer.hikari.HikariDataSource] [main] [80] [INFO ] slave_1 - Starting...
+[2020-04-23 15:22:55.055] [com.zaxxer.hikari.HikariDataSource] [main] [82] [INFO ] slave_1 - Start completed.
+[2020-04-23 15:22:55.055] [com.baomidou.dynamic.datasource.DynamicRoutingDataSource] [main] [148] [INFO ] dynamic-datasource - load a datasource named [master] success
+[2020-04-23 15:22:55.055] [com.baomidou.dynamic.datasource.DynamicRoutingDataSource] [main] [148] [INFO ] dynamic-datasource - load a datasource named [slave_1] success
+[2020-04-23 15:22:55.055] [com.baomidou.dynamic.datasource.DynamicRoutingDataSource] [main] [235] [INFO ] dynamic-datasource initial loaded [2] datasource,primary datasource named [master]
+[2020-04-23 15:22:55.055] [org.springframework.context.support.AbstractApplicationContext] [main] [558] [WARN ] Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'testController' defined in file [E:\mygit\xue\xue-background\target\classes\com\wyl\xue\xuebackground\controller\test\TestController.class]: Unsatisfied dependency expressed through constructor parameter 0; nested exception is org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.wyl.xue.test.mybatis.impl.TestService' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+[2020-04-23 15:22:55.055] [com.baomidou.dynamic.datasource.DynamicRoutingDataSource] [main] [201] [INFO ] dynamic-datasource start closing ....
+[2020-04-23 15:22:55.055] [com.zaxxer.hikari.HikariDataSource] [main] [350] [INFO ] master - Shutdown initiated...
+[2020-04-23 15:22:56.056] [com.zaxxer.hikari.HikariDataSource] [main] [352] [INFO ] master - Shutdown completed.
+[2020-04-23 15:22:56.056] [com.zaxxer.hikari.HikariDataSource] [main] [350] [INFO ] slave_1 - Shutdown initiated...
+[2020-04-23 15:22:56.056] [com.zaxxer.hikari.HikariDataSource] [main] [352] [INFO ] slave_1 - Shutdown completed.
+[2020-04-23 15:22:56.056] [com.baomidou.dynamic.datasource.DynamicRoutingDataSource] [main] [221] [INFO ] dynamic-datasource all closed success,bye
+[2020-04-23 15:22:56.056] [org.apache.juli.logging.DirectJDKLog] [main] [173] [INFO ] Stopping service [Tomcat]
+[2020-04-23 15:22:56.056] [org.apache.juli.logging.DirectJDKLog] [main] [173] [WARN ] The web application [ROOT] appears to have started a thread named [ForkJoinPool.commonPool-worker-1] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.ForkJoinPool.awaitWork(ForkJoinPool.java:1824)
+ java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1693)
+ java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-04-23 15:22:56.056] [org.apache.juli.logging.DirectJDKLog] [main] [173] [WARN ] The web application [ROOT] appears to have started a thread named [ForkJoinPool.commonPool-worker-2] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.ForkJoinPool.awaitWork(ForkJoinPool.java:1824)
+ java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1693)
+ java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-04-23 15:22:56.056] [org.apache.juli.logging.DirectJDKLog] [main] [173] [WARN ] The web application [ROOT] appears to have started a thread named [ForkJoinPool.commonPool-worker-3] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.ForkJoinPool.awaitWork(ForkJoinPool.java:1824)
+ java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1693)
+ java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-04-23 15:22:56.056] [org.apache.juli.logging.DirectJDKLog] [main] [173] [WARN ] The web application [ROOT] appears to have started a thread named [ForkJoinPool.commonPool-worker-4] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.ForkJoinPool.awaitWork(ForkJoinPool.java:1824)
+ java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1693)
+ java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-04-23 15:22:56.056] [org.apache.juli.logging.DirectJDKLog] [main] [173] [WARN ] The web application [ROOT] appears to have started a thread named [ForkJoinPool.commonPool-worker-5] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.ForkJoinPool.awaitWork(ForkJoinPool.java:1824)
+ java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1693)
+ java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-04-23 15:22:56.056] [org.apache.juli.logging.DirectJDKLog] [main] [173] [WARN ] The web application [ROOT] appears to have started a thread named [ForkJoinPool.commonPool-worker-6] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.ForkJoinPool.awaitWork(ForkJoinPool.java:1824)
+ java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1693)
+ java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-04-23 15:22:56.056] [org.apache.juli.logging.DirectJDKLog] [main] [173] [WARN ] The web application [ROOT] appears to have started a thread named [ForkJoinPool.commonPool-worker-7] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ sun.misc.Unsafe.park(Native Method)
+ java.util.concurrent.ForkJoinPool.awaitWork(ForkJoinPool.java:1824)
+ java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1693)
+ java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:157)
+[2020-04-23 15:22:56.056] [org.springframework.boot.autoconfigure.logging.ConditionEvaluationReportLoggingListener] [main] [136] [INFO ] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+[2020-04-23 15:24:15.015] [org.springframework.core.KotlinDetector] [main] [57] [INFO ] Kotlin reflection implementation not found at runtime, related features won't be available.
+[2020-04-23 15:24:16.016] [org.springframework.boot.StartupInfoLogger] [main] [55] [INFO ] Starting XueBackgroundApplication on DESKTOP-5BFD124 with PID 14468 (E:\mygit\xue\xue-background\target\classes started by wyl in E:\mygit\xue)
+[2020-04-23 15:24:16.016] [org.springframework.boot.SpringApplication] [main] [655] [INFO ] The following profiles are active: home
+[2020-04-23 15:24:16.016] [org.springframework.core.log.CompositeLog] [background-preinit] [127] [WARN ] For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+[2020-04-23 15:24:18.018] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'spring.datasource.dynamic-com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:24:18.018] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration' of type [com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceAutoConfiguration$$EnhancerBySpringCGLIB$$bffdb0ab] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:24:18.018] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'dsProcessor' of type [com.baomidou.dynamic.datasource.processor.DsHeaderProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:24:18.018] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'dynamicDatasourceAnnotationAdvisor' of type [com.baomidou.dynamic.datasource.aop.DynamicDataSourceAnnotationAdvisor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:24:18.018] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration' of type [org.springframework.security.config.annotation.configuration.ObjectPostProcessorConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:24:18.018] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'objectPostProcessor' of type [org.springframework.security.config.annotation.configuration.AutowireBeanFactoryObjectPostProcessor] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:24:18.018] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler@2513a118' of type [org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:24:18.018] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration' of type [org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:24:18.018] [org.springframework.context.support.PostProcessorRegistrationDelegate$BeanPostProcessorChecker] [main] [330] [INFO ] Bean 'methodSecurityMetadataSource' of type [org.springframework.security.access.method.DelegatingMethodSecurityMetadataSource] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+[2020-04-23 15:24:18.018] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [main] [92] [INFO ] Tomcat initialized with port(s): 8081 (http)
+[2020-04-23 15:24:18.018] [org.apache.juli.logging.DirectJDKLog] [main] [173] [INFO ] Initializing ProtocolHandler ["http-nio-8081"]
+[2020-04-23 15:24:18.018] [org.apache.juli.logging.DirectJDKLog] [main] [173] [INFO ] Starting service [Tomcat]
+[2020-04-23 15:24:18.018] [org.apache.juli.logging.DirectJDKLog] [main] [173] [INFO ] Starting Servlet engine: [Apache Tomcat/9.0.31]
+[2020-04-23 15:24:18.018] [org.apache.juli.logging.DirectJDKLog] [main] [173] [INFO ] Initializing Spring embedded WebApplicationContext
+[2020-04-23 15:24:18.018] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] [main] [284] [INFO ] Root WebApplicationContext: initialization completed in 1897 ms
+[2020-04-23 15:24:18.018] [com.zaxxer.hikari.HikariDataSource] [main] [80] [INFO ] master - Starting...
+[2020-04-23 15:24:19.019] [com.zaxxer.hikari.HikariDataSource] [main] [82] [INFO ] master - Start completed.
+[2020-04-23 15:24:19.019] [com.zaxxer.hikari.HikariDataSource] [main] [80] [INFO ] slave_1 - Starting...
+[2020-04-23 15:24:20.020] [com.zaxxer.hikari.HikariDataSource] [main] [82] [INFO ] slave_1 - Start completed.
+[2020-04-23 15:24:20.020] [com.baomidou.dynamic.datasource.DynamicRoutingDataSource] [main] [148] [INFO ] dynamic-datasource - load a datasource named [master] success
+[2020-04-23 15:24:20.020] [com.baomidou.dynamic.datasource.DynamicRoutingDataSource] [main] [148] [INFO ] dynamic-datasource - load a datasource named [slave_1] success
+[2020-04-23 15:24:20.020] [com.baomidou.dynamic.datasource.DynamicRoutingDataSource] [main] [235] [INFO ] dynamic-datasource initial loaded [2] datasource,primary datasource named [master]
+[2020-04-23 15:24:21.021] [springfox.documentation.spring.web.PropertySourcedRequestMappingHandlerMapping] [main] [69] [INFO ] Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+[2020-04-23 15:24:21.021] [org.springframework.security.web.DefaultSecurityFilterChain] [main] [43] [INFO ] Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@308a9264, org.springframework.security.web.context.SecurityContextPersistenceFilter@433d93e7, org.springframework.security.web.header.HeaderWriterFilter@3982206a, org.springframework.security.web.authentication.logout.LogoutFilter@3f9f8d23, com.wyl.xue.xuebackground.security.filter.JwtAuthenticationTokenFilter@6c07add6, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@87aec6a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5529522f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7da77305, org.springframework.security.web.session.SessionManagementFilter@22e813fc, org.springframework.security.web.access.ExceptionTranslationFilter@2ffb0d10, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@11228bee]
+[2020-04-23 15:24:22.022] [org.springframework.scheduling.concurrent.ExecutorConfigurationSupport] [main] [181] [INFO ] Initializing ExecutorService 'applicationTaskExecutor'
+[2020-04-23 15:24:22.022] [org.springframework.scheduling.concurrent.ExecutorConfigurationSupport] [main] [181] [INFO ] Initializing ExecutorService 'taskScheduler'
+[2020-04-23 15:24:22.022] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper] [main] [160] [INFO ] Context refreshed
+[2020-04-23 15:24:22.022] [springfox.documentation.spring.web.plugins.DocumentationPluginsBootstrapper] [main] [163] [INFO ] Found 1 custom documentation plugin(s)
+[2020-04-23 15:24:22.022] [springfox.documentation.spring.web.scanners.ApiListingReferenceScanner] [main] [41] [INFO ] Scanning for api listing references
+[2020-04-23 15:24:22.022] [springfox.documentation.spring.web.readers.operation.CachingOperationNameGenerator] [main] [40] [INFO ] Generating unique operation named: getUserInfoUsingGET_1
+[2020-04-23 15:24:22.022] [org.apache.juli.logging.DirectJDKLog] [main] [173] [INFO ] Starting ProtocolHandler ["http-nio-8081"]
+[2020-04-23 15:24:22.022] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [main] [204] [INFO ] Tomcat started on port(s): 8081 (http) with context path ''
+[2020-04-23 15:24:22.022] [org.springframework.boot.StartupInfoLogger] [main] [61] [INFO ] Started XueBackgroundApplication in 6.61 seconds (JVM running for 8.048)
+[2020-04-23 15:24:40.040] [org.apache.juli.logging.DirectJDKLog] [http-nio-8081-exec-1] [173] [INFO ] Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2020-04-23 15:24:40.040] [org.springframework.web.servlet.FrameworkServlet] [http-nio-8081-exec-1] [525] [INFO ] Initializing Servlet 'dispatcherServlet'
+[2020-04-23 15:24:40.040] [org.springframework.web.servlet.FrameworkServlet] [http-nio-8081-exec-1] [547] [INFO ] Completed initialization in 13 ms
+[2020-04-23 15:24:58.058] [org.springframework.scheduling.concurrent.ExecutorConfigurationSupport] [SpringContextShutdownHook] [218] [INFO ] Shutting down ExecutorService 'taskScheduler'
+[2020-04-23 15:24:58.058] [org.springframework.scheduling.concurrent.ExecutorConfigurationSupport] [SpringContextShutdownHook] [218] [INFO ] Shutting down ExecutorService 'applicationTaskExecutor'
+[2020-04-23 15:24:58.058] [com.baomidou.dynamic.datasource.DynamicRoutingDataSource] [SpringContextShutdownHook] [201] [INFO ] dynamic-datasource start closing ....
+[2020-04-23 15:24:58.058] [com.zaxxer.hikari.HikariDataSource] [SpringContextShutdownHook] [350] [INFO ] master - Shutdown initiated...
+[2020-04-23 15:24:58.058] [com.zaxxer.hikari.HikariDataSource] [SpringContextShutdownHook] [352] [INFO ] master - Shutdown completed.
+[2020-04-23 15:24:58.058] [com.zaxxer.hikari.HikariDataSource] [SpringContextShutdownHook] [350] [INFO ] slave_1 - Shutdown initiated...
+[2020-04-23 15:24:58.058] [com.zaxxer.hikari.HikariDataSource] [SpringContextShutdownHook] [352] [INFO ] slave_1 - Shutdown completed.
+[2020-04-23 15:24:58.058] [com.baomidou.dynamic.datasource.DynamicRoutingDataSource] [SpringContextShutdownHook] [221] [INFO ] dynamic-datasource all closed success,bye
