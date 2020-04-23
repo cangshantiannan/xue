@@ -1,0 +1,15 @@
+[2020-04-23 15:22:56.056] [org.springframework.boot.diagnostics.LoggingFailureAnalysisReporter] [main] [40] [ERROR] 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in com.wyl.xue.xuebackground.controller.test.TestController required a bean of type 'com.wyl.xue.test.mybatis.impl.TestService' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'com.wyl.xue.test.mybatis.impl.TestService' in your configuration.
+

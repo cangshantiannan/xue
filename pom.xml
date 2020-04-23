@@ -17,7 +17,6 @@
         <module>xue-core</module>
         <module>xue-background</module>
         <module>xue-test</module>
-        <module>xue-seckill</module>
     </modules>
     <description>一个通用的用户权限管理系统的后台</description>
 
@@ -88,12 +87,7 @@
                 <artifactId>okhttp</artifactId>
                 <version>4.4.1</version>
             </dependency>
-            <!--redis工具-->
-            <dependency>
-                <groupId>io.lettuce</groupId>
-                <artifactId>lettuce-core</artifactId>
-                <version>5.1.8.RELEASE</version>
-            </dependency>
+
         </dependencies>
     </dependencyManagement>
     <build>

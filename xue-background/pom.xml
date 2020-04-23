@@ -50,11 +50,6 @@
             <artifactId>xue-test</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.wyl</groupId>
-            <artifactId>xue-seckill</artifactId>
-            <version>${project.version}</version>
-        </dependency>
 
     </dependencies>
 
@@ -96,9 +91,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <includeSystemScope>true</includeSystemScope>
-                </configuration>
             </plugin>
         </plugins>
         <!--排除指定目录-->
