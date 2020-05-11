@@ -6,6 +6,7 @@ package com.wyl.xue.xuebackground.controller.test;
 
 import com.wyl.xue.core.util.result.WebResponse;
 import com.wyl.xue.core.util.result.WebResult;
+import com.wyl.xue.seckill.service.SeckillService;
 import com.wyl.xue.test.mybatis.entity.Test;
 import com.wyl.xue.test.mybatis.impl.TestService;
 import io.swagger.annotations.Api;
@@ -22,6 +23,7 @@ import java.util.List;
 public class TestController {
 
     final private TestService testService;
+    final private SeckillService seckillService;
 
     @PostMapping(value = "/test")
     @ApiOperation(value = "测试添加", notes = "添加部门接口")
