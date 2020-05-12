@@ -1,3 +1,7 @@
+/**
+ * @Author wangyl
+ * @E-mail wangyl0629@foxmail.com
+ **/
 package com.wyl.xue.core.dingtalk;
 
 import com.dingtalk.api.DefaultDingTalkClient;
