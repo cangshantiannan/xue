@@ -24,20 +24,18 @@ public class WebResult<T> {
      */
     private T data;
 
+    public WebResult(Integer code, String msg, T data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
+
     public WebResult(ResultCode resultCode) {
         this(resultCode, null);
     }
 
     public WebResult(ResultCode resultCode, T data) {
-        this.code = resultCode.code;
-        this.msg = resultCode.msg;
-        this.data = data;
-    }
-
-    public WebResult(Integer code, String msg, T data) {
-        this.code = code;
-        this.msg = msg;
-        this.data = data;
+        this(resultCode.code, resultCode.msg, data);
     }
 
     public WebResult(Integer code, String msg) {

@@ -15,7 +15,7 @@ public enum WebResponse {
     }
 
     public <T> WebResult<T> ok(ResultCode resultCode, T data) {
-        return new WebResult<T>(ResultCode.SUCCEED);
+        return new WebResult<T>(resultCode, data);
     }
 
     public <T> WebResult<T> ok(T data) {

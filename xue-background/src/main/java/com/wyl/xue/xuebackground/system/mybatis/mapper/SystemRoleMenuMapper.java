@@ -20,6 +20,14 @@ import java.util.Map;
  * @version V1.0
  */
 public interface SystemRoleMenuMapper extends BaseMapper<SystemRoleMenu> {
+    /**
+     * @Description 通过角色ID获取角色权限
+     * @param rolesId
+     * @return java.util.List<java.util.Map<java.lang.String,java.lang.String>>
+     * @Date 2020/5/22 10:58
+     * @Author wangyl
+     * @Version  V1.0
+     */
     @Select({
             "<script>",
                 "SELECT perms FROM system_role_menu AS a LEFT JOIN system_menu AS b ON a.menu_id=b.menu_id WHERE b.perms is not null AND a.role_id IN",
@@ -29,4 +37,14 @@ public interface SystemRoleMenuMapper extends BaseMapper<SystemRoleMenu> {
             "</script>"
     })
     List<Map<String, String>> getPermByRolesId(@Param("rolesId") List<String> rolesId);
+
+    @Select({
+            "<script>",
+                "SELECT route_path FROM system_role_menu AS a LEFT JOIN system_menu AS b ON a.menu_id=b.menu_id WHERE a.type in (0,1) AND a.role_id IN",
+                "<foreach collection='rolesId' item='roleId' open='(' separator=',' close=')'>",
+                    "#{roleId}",
+                "</foreach>",
+            "</script>"
+    })
+    List<Map<String, String>> getMenusByRolesId(@Param("rolesId") List<String> rolesId);
 }

@@ -33,4 +33,14 @@ public interface SystemRoleMenuService extends IService<SystemRoleMenu> {
      * @Version V1.0
      */
     Set<String> getPermByRoleIds(List<String> ids);
+
+    /**
+     * @Description 通过角色ids 获取该角色能访问的菜单
+     * @param ids
+     * @return java.util.Set<java.lang.String>
+     * @Date 2020/5/22 11:08
+     * @Author wangyl
+     * @Version  V1.0
+     */
+    Set<String> getMenusByRoleIds(List<String> ids);
 }

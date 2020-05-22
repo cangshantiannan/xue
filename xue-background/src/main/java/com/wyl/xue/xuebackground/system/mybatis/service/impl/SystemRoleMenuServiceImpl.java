@@ -53,4 +53,20 @@ public class SystemRoleMenuServiceImpl extends ServiceImpl<SystemRoleMenuMapper,
         Set<String> premSet = permByRolesId.parallelStream().map(tmp -> tmp.get("perms")).collect(Collectors.toSet());
         return premSet;
     }
+
+    /**
+     * @Description 通过角色ids 获取该角色能访问的菜单
+     * @param ids
+     * @return java.util.Set<java.lang.String>
+     * @Date 2020/5/22 11:08
+     * @Author wangyl
+     * @Version V1.0
+     */
+    @Override
+    public Set<String> getMenusByRoleIds(List<String> ids) {
+        List<Map<String, String>> permByRolesId = this.baseMapper.getPermByRolesId(ids);
+        Set<String> premSet = permByRolesId.parallelStream().map(tmp -> tmp.get("perms")).collect(Collectors.toSet());
+        return premSet;
+    }
+
 }
