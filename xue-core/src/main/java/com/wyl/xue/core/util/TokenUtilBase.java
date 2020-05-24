@@ -27,7 +27,7 @@ public class TokenUtilBase {
     /**
      * 默认有效期1小时
      */
-    private long EXPIRE_TIME = 60 * 60 * 1000;
+    private long EXPIRE_TIME = 60 * 60 * 100000;
     /**
      * 密钥
      */

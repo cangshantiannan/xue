@@ -3,15 +3,19 @@ package com.wyl.xue.xuebackground.controller.system;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wyl.xue.core.util.result.WebResponse;
 import com.wyl.xue.core.util.result.WebResult;
+import com.wyl.xue.xuebackground.security.user.SecurityUserInfo;
 import com.wyl.xue.xuebackground.system.mybatis.entity.SystemUsers;
 import com.wyl.xue.xuebackground.system.mybatis.service.SystemUsersService;
+import com.wyl.xue.xuebackground.system.vo.UserLoginInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -25,14 +29,15 @@ import java.util.List;
 @Api(tags = {"用户信息接口"})
 @AllArgsConstructor
 @RestController
+@CrossOrigin
 public class UserController {
 
     private final SystemUsersService systemUsersService;
 
     @ApiOperation(value = "用户登录接口", notes = "返回的token需要填写到相关请求头中")
     @PostMapping(value = "/login")
-    public WebResult<String> login(String username, String password) {
-        return WebResponse.WebResponse.ok(systemUsersService.login(username, password));
+    public WebResult<String> login(@RequestBody UserLoginInfo userLoginInfo) {
+        return WebResponse.WebResponse.ok(systemUsersService.login(userLoginInfo.getUsername(), userLoginInfo.getPassword()));
     }
 
     @ApiOperation(value = "用户新增接口", notes = "新建一个用户")
@@ -57,9 +62,10 @@ public class UserController {
     }
 
     @ApiOperation(value = "查询用户信息", notes = "根据用户ID查询用户信息")
-    @GetMapping(value = "/user/{id}")
-    public WebResult<SystemUsers> getUserInfo(@PathVariable String id) {
-        return WebResponse.WebResponse.ok(systemUsersService.getById(id));
+    @GetMapping(value = "/user")
+    public WebResult<SystemUsers> getUserInfo() {
+        SecurityUserInfo systemUsers = (SecurityUserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return WebResponse.WebResponse.ok(systemUsersService.getById(systemUsers.getUserId()));
     }
 
     @ApiOperation(value = "根据部门ID获取用户列表", notes = "根据部门ID获取用户列表")
@@ -81,5 +87,13 @@ public class UserController {
     public WebResult<Boolean> setUserRoles(@PathVariable String id, @RequestBody List<String> roleIds) {
         return WebResponse.WebResponse.ok(systemUsersService.setUserRoles(id, roleIds));
     }
+
+    @ApiOperation(value = "获取用户可以访问的路由")
+    @GetMapping(value = "/user/router")
+    public WebResult<Set<String>> getUserRouter() {
+        SecurityUserInfo systemUsers = (SecurityUserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return WebResponse.WebResponse.ok(systemUsersService.getUserRouterByUserId(systemUsers.getUserId()));
+    }
+
 
 }

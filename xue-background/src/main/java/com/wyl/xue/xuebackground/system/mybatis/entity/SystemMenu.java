@@ -45,4 +45,9 @@ public class SystemMenu extends SystemBase {
      */
     private Integer type;
 
+    /**
+     * 路由信息
+     */
+    private String routePath;
+
 }

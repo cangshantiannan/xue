@@ -40,7 +40,7 @@ public interface SystemRoleMenuMapper extends BaseMapper<SystemRoleMenu> {
 
     @Select({
             "<script>",
-                "SELECT route_path FROM system_role_menu AS a LEFT JOIN system_menu AS b ON a.menu_id=b.menu_id WHERE a.type in (0,1) AND a.role_id IN",
+                "SELECT route_path FROM system_role_menu AS a LEFT JOIN system_menu AS b ON a.menu_id=b.menu_id WHERE b.type in (0,1) AND a.role_id IN",
                 "<foreach collection='rolesId' item='roleId' open='(' separator=',' close=')'>",
                     "#{roleId}",
                 "</foreach>",

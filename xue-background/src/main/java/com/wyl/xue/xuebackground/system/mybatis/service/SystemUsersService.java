@@ -87,5 +87,15 @@ public interface SystemUsersService extends IService<SystemUsers> {
      * @Version V1.0
      */
     String login(String userName, String password);
+
+    /**
+     * @Description 获取用户可以访问的菜单路由信息
+     * @param userId
+     * @return java.util.List<java.lang.String>
+     * @Date 2020/5/22 2:18 下午
+     * @Author wangyl
+     * @Version  V1.0
+     */
+    Set<String>getUserRouterByUserId(String userId);
 }
 

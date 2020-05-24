@@ -196,6 +196,25 @@ public class SystemUsersServiceImpl extends ServiceImpl<SystemUsersMapper, Syste
         return UserInfoJwt.generateUserInfoToken(userDetail.getUsername(), userDetail.getAuthorities(), userDetail.getUserId());
     }
 
+    /**
+     * @Description 获取用户可以访问的菜单路由信息
+     * @param userId
+     * @return java.util.List<java.lang.String>
+     * @Date 2020/5/22 2:18 下午
+     * @Author wangyl
+     * @Version V1.0
+     */
+    @Override
+    public Set<String> getUserRouterByUserId(String userId) {
+        List<SystemRoles> rolesByUserId = systemRolesService.getRolesByUserId(userId);
+        List<String> roles = rolesByUserId.parallelStream().map(SystemRoles::getId).collect(Collectors.toList());
+        if (roles.isEmpty()) {
+            return new TreeSet<>();
+        } else {
+            return systemRoleMenuService.getMenusByRoleIds(roles);
+        }
+    }
+
     @Override
     public boolean save(SystemUsers entity) {
         String password = entity.getPassword();

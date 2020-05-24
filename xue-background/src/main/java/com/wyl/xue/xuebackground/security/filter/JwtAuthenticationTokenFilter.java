@@ -44,7 +44,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String token = UserInfoJwt.getToken(httpServletRequest);
         if (ObjectUtil.isNotNull(token)) {
             Map UserInfo = UserInfoJwt.UserInfo(token);
-            SecurityUserInfo securityUser = new SecurityUserInfo(UserInfo.get("sub").toString(), UserInfo.get("userid").toString(), null, null);
+            SecurityUserInfo securityUser = new SecurityUserInfo(UserInfo.get("userid").toString(),UserInfo.get("sub").toString(), null, null);
             List<Map> permissions = (List<Map>) UserInfo.get("authorities");
             List<Object> authority = permissions.parallelStream().map(permission -> permission.get("authority")).collect(Collectors.toList());
             List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(authority.toArray(new String[0]));
@@ -52,7 +52,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
         }
-
         filterChain.doFilter(httpServletRequest, httpServletResponse);
     }
 }

@@ -123,11 +123,11 @@ public class UserInfoJwt {
      */
     public static String getToken(@Nullable HttpServletRequest request) {
         String token = request.getHeader(AUTHTOKENSTART);
-        if (!StringUtils.isEmpty(token)) {
-            token = token.substring(TOKENHEADER.length());
-        } else {
-            return null;
-        }
+//        if (!StringUtils.isEmpty(token)) {
+//            token = token.substring(TOKENHEADER.length());
+//        } else {
+//            return null;
+//        }
         return token;
     }
 }

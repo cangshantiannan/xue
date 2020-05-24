@@ -64,9 +64,9 @@ public class SystemRoleMenuServiceImpl extends ServiceImpl<SystemRoleMenuMapper,
      */
     @Override
     public Set<String> getMenusByRoleIds(List<String> ids) {
-        List<Map<String, String>> permByRolesId = this.baseMapper.getPermByRolesId(ids);
-        Set<String> premSet = permByRolesId.parallelStream().map(tmp -> tmp.get("perms")).collect(Collectors.toSet());
-        return premSet;
+        List<Map<String, String>> permByRolesId = this.baseMapper.getMenusByRolesId(ids);
+        Set<String> menuRoutePath = permByRolesId.parallelStream().map(tmp -> tmp.get("route_path")).collect(Collectors.toSet());
+        return menuRoutePath;
     }
 
 }
