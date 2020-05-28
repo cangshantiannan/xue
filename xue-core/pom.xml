@@ -57,6 +57,10 @@
             <optional>true</optional>
         </dependency>
         <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.dingtalk.open</groupId>
             <artifactId>taobao-sdk-java-auto</artifactId>
             <version>1479188381469-20200430</version>
