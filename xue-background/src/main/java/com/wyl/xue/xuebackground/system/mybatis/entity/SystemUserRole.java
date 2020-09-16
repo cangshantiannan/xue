@@ -28,9 +28,9 @@ public class SystemUserRole extends SystemBase {
     /**
      * 用户ID
      */
-    private String UserId;
+    private Long UserId;
     /**
      * 角色ID
      */
-    private String roleId;
+    private Long roleId;
 }

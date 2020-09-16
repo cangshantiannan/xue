@@ -22,7 +22,7 @@ public class SystemRoles extends SystemBase {
      * 角色主键
      */
     @TableId(value = "role_id", type = IdType.ASSIGN_UUID)
-    private String id;
+    private Long roldId;
 
     /**
      * 角色名称

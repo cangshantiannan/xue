@@ -24,17 +24,17 @@ public class SystemRoleMenu extends SystemBase {
     /**
      * 主键ID
      */
-    @TableId(value = "id", type = IdType.ASSIGN_UUID)
-    private String id;
+    @TableId(value = "id", type = IdType.AUTO)
+    private Long id;
 
     /**
      * 角色ID
      */
-    private String roleId;
+    private Long roleId;
 
     /**
      * 菜单ID
      */
-    private String menuId;
+    private Long menuId;
 
 }

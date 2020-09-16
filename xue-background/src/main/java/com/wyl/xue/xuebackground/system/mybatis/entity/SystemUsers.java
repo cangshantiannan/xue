@@ -22,7 +22,7 @@ public class SystemUsers extends SystemBase {
      * 主键ID
      */
     @TableId(value = "user_id", type = IdType.ASSIGN_UUID)
-    private String userId;
+    private Long userId;
 
     /**
      * 用户名

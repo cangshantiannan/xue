@@ -23,7 +23,7 @@ public class SystemMenu extends SystemBase {
      * 菜单ID
      */
     @TableId(value = "menu_id", type = IdType.ASSIGN_UUID)
-    private String menuId;
+    private Long menuId;
 
     /**
      * 菜单名称

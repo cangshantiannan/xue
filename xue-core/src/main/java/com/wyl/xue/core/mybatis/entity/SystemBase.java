@@ -6,6 +6,7 @@ package com.wyl.xue.core.mybatis.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.Version;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -35,4 +36,15 @@ public class SystemBase implements Serializable {
      */
     @TableField(fill = FieldFill.INSERT)
     private Integer deleteFlage;
+
+    /**
+     * 更新版本
+     */
+    @Version
+    private Integer version;
+
+    /**
+     * 操作人员
+     */
+    private String operator;
 }

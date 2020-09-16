@@ -22,7 +22,7 @@ public class SystemDepartment extends SystemBase {
      * 部门主键ID
      */
     @TableId(value = "department_id", type = IdType.ASSIGN_UUID)
-    private String departmentId;
+    private Long departmentId;
 
     /**
      * 部门名称

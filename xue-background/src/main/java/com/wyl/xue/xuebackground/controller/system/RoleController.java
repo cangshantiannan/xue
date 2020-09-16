@@ -28,6 +28,7 @@ import java.util.List;
 @Api(tags = {"角色信息接口"})
 @AllArgsConstructor
 @RestController
+@CrossOrigin
 public class RoleController {
 
     final SystemRolesService systemRolesService;

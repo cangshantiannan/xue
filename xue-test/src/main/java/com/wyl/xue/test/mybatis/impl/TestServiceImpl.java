@@ -1,5 +1,7 @@
 package com.wyl.xue.test.mybatis.impl;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wyl.xue.test.conf.HttpsClientRequestFactory;
@@ -35,7 +37,7 @@ public class TestServiceImpl extends ServiceImpl<TestMapper, Test> implements Te
 
     @Override
     public void test() {
-        test2();
+        test3();
     }
 
     private void test1() {
@@ -98,4 +100,95 @@ public class TestServiceImpl extends ServiceImpl<TestMapper, Test> implements Te
         ResponseEntity<String> response = restTemplate.postForEntity("https://crm.iy-cd.com/wns-ciycrmapp/appHomeController/doPointsChange", formEntity, String.class);
         System.out.println(response.getBody());
     }
+
+    private void test3() {
+        RestTemplate restTemplate = new RestTemplate(new HttpsClientRequestFactory());
+
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", "application/json, text/javascript, */*; q=0.01");
+//        headers.set("Accept-Encoding", "gzip, deflate, br");
+        headers.set("Accept-Language", "zh-CN,zh;q=0.9");
+        headers.set("Connection", "keep-alive");
+        headers.set("Cookie", "JSESSIONID=758D18061DC8B9A6F2DD6E40F63EE915; zwyClient=6b7c908a-3f0a-46bd-bf15-4d49aaf0e1f8; fct=1585288510baf218dff7b1ad5de2e6bc; gj-phone=18908018529; gj-new=1571277068281051054131eb78f27dd1; ZNKFhref=https://www.bangwo8.com/osp2016/chat/pc/index.php?vendorID=242476&field_value=6064-44024&field_key=authAccount&tagSkillList=&permissions=0&customInfo=%26compName%3D%25E6%2588%2590%25E9%2583%25BD%25E5%25AD%2599%25E5%25A4%25A7%25E8%2583%259C%25E8%25B4%25A2%25E7%25A8%258E%25E5%2592%25A8%25E8%25AF%25A2%25E6%259C%2589%25E9%2599%2590%25E5%2585%25AC%25E5%258F%25B8%26employeeNo%3D18908018529%26employeeName%3D%25E6%259C%2588%25E6%259C%2588%26contractBegin%3D2018-12-27%26contractEnd%3D2024-06-27%26accountNum%3D%25E8%25B4%25AD%25E4%25B9%25B0%25E6%2595%25B0%25EF%25BC%259A50-%25E5%25B7%25B2%25E4%25BD%25BF%25E7%2594%25A8%25EF%25BC%259A45%26autotaxValue%3D0.00%25E5%2585%2583; customInfoZNKF=https://www.bangwo8.com/osp2016/chat/pc/index.php?vendorID=242476&field_value=6064-44024&field_key=authAccount&tagSkillList=&permissions=0&customInfo=%26compName%3D%25E6%2588%2590%25E9%2583%25BD%25E5%25AD%2599%25E5%25A4%25A7%25E8%2583%259C%25E8%25B4%25A2%25E7%25A8%258E%25E5%2592%25A8%25E8%25AF%25A2%25E6%259C%2589%25E9%2599%2590%25E5%2585%25AC%25E5%258F%25B8%26employeeNo%3D18908018529%26employeeName%3D%25E6%259C%2588%25E6%259C%2588%26contractBegin%3D2018-12-27%26contractEnd%3D2024-06-27%26accountNum%3D%25E8%25B4%25AD%25E4%25B9%25B0%25E6%2595%25B0%25EF%25BC%259A50-%25E5%25B7%25B2%25E4%25BD%25BF%25E7%2594%25A8%25EF%25BC%259A45%26autotaxValue%3D0.00%25E5%2585%2583; fieldValueZNKF=6064-44024; userId=763945; H_KJ_ID=8700000925215; H_KJ_COMID=2203078; thisDbid=8700000925215; Hm_lvt_aa4f230f6878e8cb77ea9eb20c0ff9f3=1587630105; Hm_lpvt_aa4f230f6878e8cb77ea9eb20c0ff9f3=1587630293");
+        headers.set("Host", "vip2.kdzwy.com:34");
+        headers.set("Referer", "https://vip2.kdzwy.com:34/voucher/voucher-list.jsp");
+        headers.set("Sec-Fetch-Mode", "cors");
+        headers.set("Sec-Fetch-Site", "same-origin");
+        headers.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36");
+        headers.set("X-Requested-With", "XMLHttpRequest");
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        HttpEntity<MultiValueMap<String, String>> formEntity = new HttpEntity<>(map, headers);
+        map.add("m", "findList");
+        map.add("fromPeriod", "202004");
+        map.add("toPeriod", "202004");
+        map.add("_search", "false");
+        map.add("nd", "1587630611441");
+        map.add("rows", "100");
+        map.add("page", "1");
+        map.add("sidx", "date");
+        map.add("sord", "asc");
+
+        ResponseEntity<String> response = restTemplate.postForEntity("https://vip2.kdzwy.com:34/gl/voucher", formEntity, String.class);
+        JSONObject json = JSONObject.parseObject(response.getBody());
+        JSONArray rows = json.getJSONArray("rows");
+        int num = 0;
+        for (int i = 0; i < rows.size(); i++) {
+            num++;
+            String id = rows.getJSONObject(i).getString("id");
+            System.out.println(id);
+
+            test4(id);
+        }
+        System.out.println(num);
+    }
+
+    private void test4(String id) {
+        RestTemplate restTemplate = new RestTemplate(new HttpsClientRequestFactory());
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", "application/json, text/javascript, */*; q=0.01");
+        headers.set("Accept-Language", "zh-CN,zh;q=0.9");
+        headers.set("Connection", "keep-alive");
+        headers.set("Cookie", "JSESSIONID=758D18061DC8B9A6F2DD6E40F63EE915; zwyClient=6b7c908a-3f0a-46bd-bf15-4d49aaf0e1f8; fct=1585288510baf218dff7b1ad5de2e6bc; gj-phone=18908018529; gj-new=1571277068281051054131eb78f27dd1; ZNKFhref=https://www.bangwo8.com/osp2016/chat/pc/index.php?vendorID=242476&field_value=6064-44024&field_key=authAccount&tagSkillList=&permissions=0&customInfo=%26compName%3D%25E6%2588%2590%25E9%2583%25BD%25E5%25AD%2599%25E5%25A4%25A7%25E8%2583%259C%25E8%25B4%25A2%25E7%25A8%258E%25E5%2592%25A8%25E8%25AF%25A2%25E6%259C%2589%25E9%2599%2590%25E5%2585%25AC%25E5%258F%25B8%26employeeNo%3D18908018529%26employeeName%3D%25E6%259C%2588%25E6%259C%2588%26contractBegin%3D2018-12-27%26contractEnd%3D2024-06-27%26accountNum%3D%25E8%25B4%25AD%25E4%25B9%25B0%25E6%2595%25B0%25EF%25BC%259A50-%25E5%25B7%25B2%25E4%25BD%25BF%25E7%2594%25A8%25EF%25BC%259A45%26autotaxValue%3D0.00%25E5%2585%2583; customInfoZNKF=https://www.bangwo8.com/osp2016/chat/pc/index.php?vendorID=242476&field_value=6064-44024&field_key=authAccount&tagSkillList=&permissions=0&customInfo=%26compName%3D%25E6%2588%2590%25E9%2583%25BD%25E5%25AD%2599%25E5%25A4%25A7%25E8%2583%259C%25E8%25B4%25A2%25E7%25A8%258E%25E5%2592%25A8%25E8%25AF%25A2%25E6%259C%2589%25E9%2599%2590%25E5%2585%25AC%25E5%258F%25B8%26employeeNo%3D18908018529%26employeeName%3D%25E6%259C%2588%25E6%259C%2588%26contractBegin%3D2018-12-27%26contractEnd%3D2024-06-27%26accountNum%3D%25E8%25B4%25AD%25E4%25B9%25B0%25E6%2595%25B0%25EF%25BC%259A50-%25E5%25B7%25B2%25E4%25BD%25BF%25E7%2594%25A8%25EF%25BC%259A45%26autotaxValue%3D0.00%25E5%2585%2583; fieldValueZNKF=6064-44024; userId=763945; H_KJ_ID=8700000925215; H_KJ_COMID=2203078; thisDbid=8700000925215; Hm_lvt_aa4f230f6878e8cb77ea9eb20c0ff9f3=1587630105; Hm_lpvt_aa4f230f6878e8cb77ea9eb20c0ff9f3=1587630293");
+        headers.set("Host", "vip2.kdzwy.com:34");
+        headers.set("Referer", "https://vip2.kdzwy.com:34/voucher/voucher-list.jsp");
+        headers.set("Sec-Fetch-Mode", "cors");
+        headers.set("Sec-Fetch-Site", "same-origin");
+        headers.set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36");
+        headers.set("X-Requested-With", "XMLHttpRequest");
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        HttpEntity<MultiValueMap<String, String>> formEntity = new HttpEntity<>(map, headers);
+        map.add("m", "getVchById");
+        map.add("vchId", id);
+        ResponseEntity<String> response = restTemplate.postForEntity("https://vip2.kdzwy.com:34/gl/voucher", formEntity, String.class);
+        JSONObject json = JSONObject.parseObject(response.getBody());
+        JSONObject data = json.getJSONObject("data");
+
+        JSONObject res = new JSONObject();
+        res.put("附单据", data.get("attachments"));
+        res.put("制单人", data.get("attachments"));
+        res.put("是否结账", data.get("attachments"));
+        res.put("录入时间", data.get("attachments"));
+        res.put("信贷总额", data.get("attachments"));
+        res.put("日期", data.get("attachments"));
+        res.put("总借钱", data.get("attachments"));
+        res.put("摘要", data.get("attachments"));
+        res.put("最后修改时间", data.get("attachments"));
+        res.put("凭证号", data.get("attachments"));
+        res.put("年月", data.get("attachments"));
+        res.put("会计科目", data.get("attachments"));
+        res.put("会计号", data.get("attachments"));
+        res.put("总计", data.get("attachments"));
+        res.put("借款", data.get("attachments"));
+        res.put("借款摘要", data.get("attachments"));
+        res.put("贷方", data.get("attachments"));
+        res.put("贷方摘要", data.get("attachments"));
+
+        JSONArray datas = json.getJSONArray("entries");
+
+
+        System.out.println(json);
+    }
+
+
 }
