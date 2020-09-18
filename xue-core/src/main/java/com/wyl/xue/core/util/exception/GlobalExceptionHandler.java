@@ -74,6 +74,5 @@ public class GlobalExceptionHandler {
         return WebResponse.WebResponse.error(ResultCode.FAILED);
     }
 
-
 }
  

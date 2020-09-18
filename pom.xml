@@ -15,7 +15,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>xue-core</module>
-        <module>xue-background</module>
+        <module>xue-admin</module>
         <module>xue-test</module>
         <module>xue-seckill</module>
     </modules>

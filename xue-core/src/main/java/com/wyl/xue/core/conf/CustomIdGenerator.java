@@ -25,7 +25,8 @@ public class CustomIdGenerator implements IdentifierGenerator {
      */
     @Override
     public Number nextId(Object entity) {
-        return IdUtil.createSnowflake(1, 1).nextId();
+        return IdUtil.createSnowflake(1, 1)
+                     .nextId();
     }
 
     /**
@@ -36,6 +37,7 @@ public class CustomIdGenerator implements IdentifierGenerator {
      */
     @Override
     public String nextUUID(Object entity) {
-        return IdUtil.createSnowflake(1, 1).nextIdStr();
+        return IdUtil.createSnowflake(1, 1)
+                     .nextIdStr();
     }
 }
