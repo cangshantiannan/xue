@@ -5,11 +5,11 @@
 package com.wyl.xue.admin.controller.system;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.wyl.xue.admin.system.mybatis.entity.SystemDepartment;
 import com.wyl.xue.admin.system.mybatis.service.SystemDepartmentService;
+import com.wyl.xue.admin.system.vo.DepartmentTree;
 import com.wyl.xue.core.util.result.WebResponse;
 import com.wyl.xue.core.util.result.WebResult;
-import com.wyl.xue.admin.system.mybatis.entity.SystemDepartment;
-import com.wyl.xue.admin.system.vo.DepartmentTree;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -25,10 +25,11 @@ import java.util.List;
  * @author wyl
  * @version V1.0
  */
-@RequestMapping("/v1")
+@RequestMapping("/xue-admin/v1")
 @Api(tags = {"部门信息接口"})
 @AllArgsConstructor
 @RestController
+@CrossOrigin
 public class DepartmentController {
 
     final private SystemDepartmentService systemDepartmentService;
@@ -55,14 +56,14 @@ public class DepartmentController {
     }
 
     @ApiOperation(value = "获取部门树", notes = "获取部门树")
-    @GetMapping(value = "/department")
+    @GetMapping(value = "/department/tree")
     public WebResult<List<DepartmentTree>> getUserInfo() {
         return WebResponse.WebResponse.ok(systemDepartmentService.getDepartmentTree());
     }
 
     @ApiOperation(value = "获取指定部门下的一级子目录")
     @GetMapping(value = "/department/{id}/{page}/{size}")
-    public WebResult<IPage<SystemDepartment>> getSubdirectoryById(@PathVariable String id, @PathVariable Integer page, @PathVariable Integer size) {
+    public WebResult<IPage<SystemDepartment>> getSubdirectoryById(@PathVariable Long id, @PathVariable Integer page, @PathVariable Integer size) {
         return WebResponse.WebResponse.ok(systemDepartmentService.getSubdirectoryById(id, page, size));
     }
 

@@ -22,5 +22,5 @@ public interface SystemUserRoleService extends IService<SystemUserRole> {
      * @Author wangyl
      * @Version V1.0
      */
-    List<SystemUserRole> getSystemUserRoleByUserId(String userId);
+    List<SystemUserRole> getSystemUserRoleByUserId(Long userId);
 }

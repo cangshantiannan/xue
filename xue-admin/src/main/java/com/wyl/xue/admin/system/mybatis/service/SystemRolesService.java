@@ -4,6 +4,7 @@ package com.wyl.xue.admin.system.mybatis.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.xue.admin.system.mybatis.entity.SystemRoles;
+import com.wyl.xue.admin.system.vo.RoleInto;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public interface SystemRolesService extends IService<SystemRoles> {
      * @Author wangyl
      * @Version V1.0
      */
-    List<SystemRoles> getRolesByUserId(String userId);
+    List<SystemRoles> getRolesByUserId(Long userId);
 
     /**
      * @Description 分页获取角色信息
@@ -35,7 +36,17 @@ public interface SystemRolesService extends IService<SystemRoles> {
      * @Author wangyl
      * @Version V1.0
      */
-    IPage<SystemRoles> getRolesInfo(Integer page, Integer size);
+    IPage<SystemRoles> getRolesInfoByPage(Integer page, Integer size);
+
+
+    /**
+     * @Description 获取角色信息
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.wyl.xue.system.mybatis.entity.SystemRoles>
+     * @Date 2020/4/13 23:08
+     * @Author wangyl
+     * @Version V1.0
+     */
+    List<RoleInto> getRolesInfo();
 
 
     /**
@@ -47,5 +58,5 @@ public interface SystemRolesService extends IService<SystemRoles> {
      * @Author wangyl
      * @Version V1.0
      */
-    Boolean setRoleMenus(String id, List<String> menuIds);
+    Boolean setRoleMenus(Long id, List<Long> menuIds);
 }

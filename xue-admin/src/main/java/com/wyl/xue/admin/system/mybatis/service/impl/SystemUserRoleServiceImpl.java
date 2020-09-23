@@ -32,7 +32,7 @@ public class SystemUserRoleServiceImpl extends ServiceImpl<SystemUserRoleMapper,
      * @Version V1.0
      */
     @Override
-    public List<SystemUserRole> getSystemUserRoleByUserId(String userId) {
+    public List<SystemUserRole> getSystemUserRoleByUserId(Long userId) {
         return this.list(Wrappers.<SystemUserRole>lambdaQuery().eq(SystemUserRole::getUserId, userId));
     }
 }

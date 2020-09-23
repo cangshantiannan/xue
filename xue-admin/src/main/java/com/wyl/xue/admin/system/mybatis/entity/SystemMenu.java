@@ -22,7 +22,7 @@ public class SystemMenu extends SystemBase {
     /**
      * 菜单ID
      */
-    @TableId(value = "menu_id", type = IdType.ASSIGN_UUID)
+    @TableId(value = "menu_id", type = IdType.ASSIGN_ID)
     private Long menuId;
 
     /**
@@ -38,17 +38,12 @@ public class SystemMenu extends SystemBase {
     /**
      * 父菜单ID
      */
-    private String parentId;
+    private Long parentId;
 
     /**
      * 菜单类型 （类型   0：目录   1：菜单   2：按钮）
      */
     private Integer type;
-
-    /**
-     * 路由信息
-     */
-    private String routePath;
 
     /**
      * 更新版本

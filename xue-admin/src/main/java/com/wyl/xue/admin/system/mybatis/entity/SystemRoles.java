@@ -21,7 +21,7 @@ public class SystemRoles extends SystemBase {
     /**
      * 角色主键
      */
-    @TableId(value = "role_id", type = IdType.ASSIGN_UUID)
+    @TableId(value = "role_id", type = IdType.ASSIGN_ID)
     private Long roldId;
 
     /**

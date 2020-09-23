@@ -22,7 +22,7 @@ public interface SystemRoleMenuService extends IService<SystemRoleMenu> {
      * @Author wangyl
      * @Version V1.0
      */
-    List<SystemRoleMenu> getSystemRoleMenuByMenuId(String menuId);
+    List<SystemRoleMenu> getSystemRoleMenuByMenuId(Long menuId);
 
     /**
      * @Description 通过角色ids 获取所有权限
@@ -32,7 +32,7 @@ public interface SystemRoleMenuService extends IService<SystemRoleMenu> {
      * @Author wangyl
      * @Version V1.0
      */
-    Set<String> getPermByRoleIds(List<String> ids);
+    Set<String> getPermByRoleIds(List<Long> ids);
 
     /**
      * @Description 通过角色ids 获取该角色能访问的菜单
@@ -40,7 +40,7 @@ public interface SystemRoleMenuService extends IService<SystemRoleMenu> {
      * @return java.util.Set<java.lang.String>
      * @Date 2020/5/22 11:08
      * @Author wangyl
-     * @Version  V1.0
+     * @Version V1.0
      */
-    Set<String> getMenusByRoleIds(List<String> ids);
+    Set<Long> getMenusByRoleIds(List<Long> ids);
 }

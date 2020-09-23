@@ -5,14 +5,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wyl.xue.admin.system.mybatis.entity.SystemDepartment;
 import com.wyl.xue.admin.system.mybatis.mapper.SystemDepartmentMapper;
 import com.wyl.xue.admin.system.mybatis.service.SystemDepartmentService;
 import com.wyl.xue.admin.system.mybatis.service.SystemUsersService;
+import com.wyl.xue.admin.system.vo.DepartmentTree;
 import com.wyl.xue.core.util.exception.BizException;
 import com.wyl.xue.core.util.result.ResultCode;
 import com.wyl.xue.core.util.tree.TreeUtil;
-import com.wyl.xue.admin.system.mybatis.entity.SystemDepartment;
-import com.wyl.xue.admin.system.vo.DepartmentTree;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -48,11 +48,12 @@ public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMap
     public List<DepartmentTree> getDepartmentTree() {
         List<SystemDepartment> systemDepartmentList = this.list();
         List<DepartmentTree> departmentTreeList = new ArrayList<>();
-        systemDepartmentList.stream().forEach(systemDepartment -> {
-            DepartmentTree departmentTree = new DepartmentTree(systemDepartment.getDepartmentId(), systemDepartment.getParentId(), systemDepartment.getDepartmentName());
-            departmentTreeList.add(departmentTree);
-        });
-        return TreeUtil.bulid(departmentTreeList, "-1", null);
+        systemDepartmentList.stream()
+                            .forEach(systemDepartment -> {
+                                DepartmentTree departmentTree = new DepartmentTree(systemDepartment.getDepartmentId(), systemDepartment.getParentId(), systemDepartment.getDepartmentName());
+                                departmentTreeList.add(departmentTree);
+                            });
+        return TreeUtil.bulid(departmentTreeList, -1L, null);
     }
 
     /**
@@ -64,7 +65,7 @@ public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMap
      * @Version V1.0
      */
     @Override
-    public List<Object> getDepartmentTreeById(String id) {
+    public List<Object> getDepartmentTreeById(Long id) {
         List<Object> resultIdList = new ArrayList<>();
         List<DepartmentTree> departmentTreeList = this.getDepartmentTree();
         TreeUtil.getTreeChildrenId(departmentTreeList, resultIdList);
@@ -80,7 +81,7 @@ public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMap
      * @Version V1.0
      */
     @Override
-    public IPage<SystemDepartment> getSubdirectoryById(String id, Integer page, Integer size) {
+    public IPage<SystemDepartment> getSubdirectoryById(Long id, Integer page, Integer size) {
         Page<SystemDepartment> pageInfo = new Page<>(page, size);
         IPage<SystemDepartment> systemDepartmentPage = this.page(pageInfo, Wrappers.<SystemDepartment>lambdaQuery().eq(SystemDepartment::getParentId, id));
         return systemDepartmentPage;
@@ -88,7 +89,8 @@ public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMap
 
     @Override
     public boolean removeById(Serializable id) {
-        if (systemUsersService.getSystemUsersByDepartmentId(id.toString()).isEmpty()) {
+        if (systemUsersService.getSystemUsersByDepartmentId(Long.valueOf(id.toString()))
+                              .isEmpty()) {
             return super.removeById(id);
         } else {
             throw new BizException(ResultCode.HAVERESOURCES);

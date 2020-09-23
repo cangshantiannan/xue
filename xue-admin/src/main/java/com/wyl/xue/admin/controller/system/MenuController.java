@@ -4,11 +4,11 @@
  **/
 package com.wyl.xue.admin.controller.system;
 
+import com.wyl.xue.admin.system.mybatis.entity.SystemMenu;
 import com.wyl.xue.admin.system.mybatis.service.SystemMenuService;
 import com.wyl.xue.admin.system.vo.MenuTree;
 import com.wyl.xue.core.util.result.WebResponse;
 import com.wyl.xue.core.util.result.WebResult;
-import com.wyl.xue.admin.system.mybatis.entity.SystemMenu;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -25,7 +25,7 @@ import java.util.List;
  * @version V1.0
  */
 @RestController
-@RequestMapping("/v1")
+@RequestMapping("/xue-admin/v1")
 @Api(tags = {"菜单信息接口"})
 @AllArgsConstructor
 public class MenuController {
@@ -56,13 +56,13 @@ public class MenuController {
     @DeleteMapping(value = "/menu/{id}")
     @ApiOperation(value = "删除菜单信息", notes = "根据菜单id删除指定菜单")
     @PreAuthorize("hasAuthority('sys:menu:del')")
-    public WebResult<Boolean> deleteMenu(@PathVariable String id) {
+    public WebResult<Boolean> deleteMenu(@PathVariable Long id) {
         return WebResponse.WebResponse.ok(systemMenuService.removeById(id));
     }
 
     @GetMapping(value = "/menus/{id}")
     @ApiOperation(value = "获取指定菜单下的所有按钮")
-    public WebResult<List<SystemMenu>> getMenusById(@PathVariable String id) {
+    public WebResult<List<SystemMenu>> getMenusById(@PathVariable Long id) {
         return WebResponse.WebResponse.ok(systemMenuService.getMenusById(id));
     }
 }

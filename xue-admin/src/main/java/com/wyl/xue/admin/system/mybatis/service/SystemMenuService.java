@@ -32,5 +32,5 @@ public interface SystemMenuService extends IService<SystemMenu> {
      * @Author wangyl
      * @Version V1.0
      */
-    List<SystemMenu> getMenusById(String id);
+    List<SystemMenu> getMenusById(Long id);
 }

@@ -5,9 +5,9 @@
 package com.wyl.xue.admin.security.filter;
 
 import cn.hutool.core.util.ObjectUtil;
-import com.wyl.xue.admin.system.mybatis.service.SystemUsersService;
 import com.wyl.xue.admin.security.UserInfoJwt;
 import com.wyl.xue.admin.security.user.SecurityUserInfo;
+import com.wyl.xue.admin.system.mybatis.service.SystemUsersService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -44,12 +44,12 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         String token = UserInfoJwt.getToken(httpServletRequest);
         if (ObjectUtil.isNotNull(token)) {
             Map UserInfo = UserInfoJwt.UserInfo(token);
-            SecurityUserInfo securityUser = new SecurityUserInfo(UserInfo.get("userid")
-                                                                         .toString(), UserInfo.get("sub")
-                                                                                              .toString(), null, null);
+            SecurityUserInfo securityUser = new SecurityUserInfo(Long.valueOf(UserInfo.get("userid")
+                                                                                      .toString()), UserInfo.get("sub")
+                                                                                                            .toString(), null, null);
             List<Map> permissions = (List<Map>) UserInfo.get("authorities");
             List<Object> authority = permissions.parallelStream()
-                                             .map(permission -> permission.get("authority"))
+                                                .map(permission -> permission.get("authority"))
                                                 .collect(Collectors.toList());
             List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(authority.toArray(new String[0]));
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(securityUser, null, authorities);

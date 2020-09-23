@@ -21,7 +21,7 @@ public class SystemDepartment extends SystemBase {
     /**
      * 部门主键ID
      */
-    @TableId(value = "department_id", type = IdType.ASSIGN_UUID)
+    @TableId(value = "department_id", type = IdType.ASSIGN_ID)
     private Long departmentId;
 
     /**
@@ -33,7 +33,7 @@ public class SystemDepartment extends SystemBase {
     /**
      * 上级部门
      */
-    private String parentId;
+    private Long parentId;
 
     /**
      * 更新版本

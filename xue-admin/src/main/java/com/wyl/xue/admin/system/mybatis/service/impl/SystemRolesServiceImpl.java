@@ -5,15 +5,16 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wyl.xue.admin.system.mybatis.entity.SystemRoleMenu;
+import com.wyl.xue.admin.system.mybatis.entity.SystemRoles;
 import com.wyl.xue.admin.system.mybatis.entity.SystemUserRole;
 import com.wyl.xue.admin.system.mybatis.mapper.SystemRolesMapper;
 import com.wyl.xue.admin.system.mybatis.service.SystemRoleMenuService;
 import com.wyl.xue.admin.system.mybatis.service.SystemRolesService;
 import com.wyl.xue.admin.system.mybatis.service.SystemUserRoleService;
+import com.wyl.xue.admin.system.vo.RoleInto;
 import com.wyl.xue.core.util.exception.BizException;
 import com.wyl.xue.core.util.result.ResultCode;
-import com.wyl.xue.admin.system.mybatis.entity.SystemRoleMenu;
-import com.wyl.xue.admin.system.mybatis.entity.SystemRoles;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -42,7 +43,8 @@ public class SystemRolesServiceImpl extends ServiceImpl<SystemRolesMapper, Syste
     @Override
     @Transient
     public boolean removeById(Serializable id) {
-        if (systemUserRoleService.list(Wrappers.<SystemUserRole>lambdaQuery().eq(SystemUserRole::getRoleId, id)).isEmpty()) {
+        if (systemUserRoleService.list(Wrappers.<SystemUserRole>lambdaQuery().eq(SystemUserRole::getRoleId, id))
+                                 .isEmpty()) {
             /**
              *删除菜单角色关联
              */
@@ -62,9 +64,11 @@ public class SystemRolesServiceImpl extends ServiceImpl<SystemRolesMapper, Syste
      * @Version V1.0
      */
     @Override
-    public List<SystemRoles> getRolesByUserId(String userId) {
+    public List<SystemRoles> getRolesByUserId(Long userId) {
         List<SystemUserRole> systemUserRoles = systemUserRoleService.list(Wrappers.<SystemUserRole>lambdaQuery().eq(SystemUserRole::getUserId, userId));
-        List<String> roleIds = systemUserRoles.parallelStream().map(SystemUserRole::getRoleId).collect(Collectors.toList());
+        List<Long> roleIds = systemUserRoles.parallelStream()
+                                            .map(SystemUserRole::getRoleId)
+                                            .collect(Collectors.toList());
         return listByIds(roleIds);
     }
 
@@ -78,9 +82,25 @@ public class SystemRolesServiceImpl extends ServiceImpl<SystemRolesMapper, Syste
      * @Version V1.0
      */
     @Override
-    public IPage<SystemRoles> getRolesInfo(Integer page, Integer size) {
+    public IPage<SystemRoles> getRolesInfoByPage(Integer page, Integer size) {
         Page<SystemRoles> pageInfo = new Page<>(page, size);
         return page(pageInfo);
+    }
+
+    /**
+     * @Description 获取角色信息
+     * @return com.baomidou.mybatisplus.core.metadata.IPage<com.wyl.xue.system.mybatis.entity.SystemRoles>
+     * @Date 2020/4/13 23:08
+     * @Author wangyl
+     * @Version V1.0
+     */
+    @Override
+    public List<RoleInto> getRolesInfo() {
+        List<RoleInto> roleIntoList = this.list()
+                                          .parallelStream()
+                                          .map(a -> new RoleInto(a))
+                                          .collect(Collectors.toList());
+        return roleIntoList;
     }
 
     /**
@@ -93,9 +113,14 @@ public class SystemRolesServiceImpl extends ServiceImpl<SystemRolesMapper, Syste
      * @Version V1.0
      */
     @Override
-    public Boolean setRoleMenus(String id, List<String> menuIds) {
+    public Boolean setRoleMenus(Long id, List<Long> menuIds) {
         systemRoleMenuService.remove(Wrappers.<SystemRoleMenu>lambdaQuery().eq(SystemRoleMenu::getRoleId, id));
-        List<SystemRoleMenu> systemRoleMenus = menuIds.parallelStream().map(menuId -> SystemRoleMenu.builder().menuId(menuId).roleId(id).build()).collect(Collectors.toList());
+        List<SystemRoleMenu> systemRoleMenus = menuIds.parallelStream()
+                                                      .map(menuId -> SystemRoleMenu.builder()
+                                                                                   .menuId(menuId)
+                                                                                   .roleId(id)
+                                                                                   .build())
+                                                      .collect(Collectors.toList());
         return systemRoleMenuService.saveBatch(systemRoleMenus);
     }
 }

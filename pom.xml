@@ -16,7 +16,6 @@
     <modules>
         <module>xue-core</module>
         <module>xue-admin</module>
-        <module>xue-test</module>
         <module>xue-seckill</module>
     </modules>
     <description>一个通用的用户权限管理系统的后台</description>

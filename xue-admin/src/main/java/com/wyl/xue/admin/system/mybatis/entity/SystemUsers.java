@@ -21,14 +21,17 @@ public class SystemUsers extends SystemBase {
     /**
      * 主键ID
      */
-    @TableId(value = "user_id", type = IdType.ASSIGN_UUID)
+    @TableId(value = "user_id", type = IdType.ASSIGN_ID)
     private Long userId;
 
     /**
      * 用户名
      */
     private String username;
-
+    /**
+     * 用户头像
+     */
+    private String avatar;
     /**
      * 密码
      */
@@ -48,6 +51,11 @@ public class SystemUsers extends SystemBase {
      * 手机号
      */
     private String phoneNumber;
+
+    /**
+     *用户描述
+     */
+    private String introduction;
 
     /**
      * 更新版本

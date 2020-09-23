@@ -10,7 +10,7 @@ import com.wyl.xue.core.util.tree.BaseTree;
  * @version V1.0
  */
 public class DepartmentTree extends BaseTree {
-    public DepartmentTree(String id, String parent_id, String name) {
+    public DepartmentTree(Long id, Long parent_id, String name) {
         super(id, parent_id, name);
     }
 }

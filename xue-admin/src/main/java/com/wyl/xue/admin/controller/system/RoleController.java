@@ -5,10 +5,11 @@
 package com.wyl.xue.admin.controller.system;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.wyl.xue.admin.system.mybatis.entity.SystemRoles;
 import com.wyl.xue.admin.system.mybatis.service.SystemRolesService;
+import com.wyl.xue.admin.system.vo.RoleInto;
 import com.wyl.xue.core.util.result.WebResponse;
 import com.wyl.xue.core.util.result.WebResult;
-import com.wyl.xue.admin.system.mybatis.entity.SystemRoles;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
@@ -24,7 +25,7 @@ import java.util.List;
  * @author wyl
  * @version V1.0
  */
-@RequestMapping("/v1")
+@RequestMapping("/xue-admin/v1")
 @Api(tags = {"角色信息接口"})
 @AllArgsConstructor
 @RestController
@@ -55,22 +56,28 @@ public class RoleController {
     }
 
     @GetMapping(value = "/role/{page}/{size}")
+    @ApiOperation(value = "获取所有角色信息分页")
+    public WebResult<IPage<SystemRoles>> getRolesInfoByPage(@PathVariable Integer page, @PathVariable Integer size) {
+        return WebResponse.WebResponse.ok(systemRolesService.getRolesInfoByPage(page, size));
+    }
+
+    @GetMapping(value = "/role")
     @ApiOperation(value = "获取所有角色信息")
-    public WebResult<IPage<SystemRoles>> getRolesInfo(@PathVariable Integer page, @PathVariable Integer size) {
-        return WebResponse.WebResponse.ok(systemRolesService.getRolesInfo(page, size));
+    public WebResult<List<RoleInto>> getRolesInfo() {
+        return WebResponse.WebResponse.ok(systemRolesService.getRolesInfo());
     }
 
     @GetMapping(value = "/role/user/{userid}")
     @ApiOperation(value = "通过用户id 获取该用户下的所有角色")
     @PreAuthorize("hasAuthority('sys:role:getuser')")
-    public WebResult<List<SystemRoles>> getRolesInfoByUserId(@PathVariable String userId) {
+    public WebResult<List<SystemRoles>> getRolesInfoByUserId(@PathVariable Long userId) {
         return WebResponse.WebResponse.ok(systemRolesService.getRolesByUserId(userId));
     }
 
     @PostMapping(value = "/role/menus/{id}")
     @ApiOperation(value = "设置角色的菜单信息")
     @PreAuthorize("hasAuthority('sys:role:setmenu')")
-    public WebResult<Boolean> setRoleMenus(@PathVariable String id, @RequestBody List<String> menuIds) {
+    public WebResult<Boolean> setRoleMenus(@PathVariable Long id, @RequestBody List<Long> menuIds) {
         return WebResponse.WebResponse.ok(systemRolesService.setRoleMenus(id, menuIds));
     }
 }

@@ -4,13 +4,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.wyl.xue.admin.security.user.SecurityUserInfo;
 import com.wyl.xue.admin.system.mybatis.entity.SystemUsers;
 import com.wyl.xue.admin.system.mybatis.service.SystemUsersService;
+import com.wyl.xue.admin.system.vo.UserInfo;
 import com.wyl.xue.admin.system.vo.UserLoginInfo;
 import com.wyl.xue.core.util.result.WebResponse;
 import com.wyl.xue.core.util.result.WebResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +25,7 @@ import java.util.Set;
  * @author wyl
  * @version V1.0
  */
-@RequestMapping("/v1")
+@RequestMapping("/xue-admin/v1")
 @Api(tags = {"用户信息接口"})
 @AllArgsConstructor
 @RestController
@@ -42,56 +42,65 @@ public class UserController {
 
     @ApiOperation(value = "用户新增接口", notes = "新建一个用户")
     @PostMapping(value = "/user")
-    @PreAuthorize("hasAuthority('sys:user:add')")
+//    @PreAuthorize("hasAuthority('sys:user:add')")
     public WebResult<Boolean> addUser(@RequestBody SystemUsers userInfo) {
+        SecurityUserInfo systemUsers = (SecurityUserInfo) SecurityContextHolder.getContext()
+                                                                               .getAuthentication()
+                                                                               .getPrincipal();
+
+        userInfo.setOperator(systemUsers.getUsername());
         return WebResponse.WebResponse.ok(systemUsersService.save(userInfo));
     }
 
     @ApiOperation(value = "用户更新接口", notes = "更新用户的信息")
     @PutMapping(value = "/user")
-    @PreAuthorize("hasAuthority('sys:user:update')")
+//    @PreAuthorize("hasAuthority('sys:user:update')")
     public WebResult<Boolean> changeUser(@RequestBody SystemUsers userInfo) {
         return WebResponse.WebResponse.ok(systemUsersService.updateById(userInfo));
     }
 
     @ApiOperation(value = "用户删除接口", notes = "根据用户ID删除用户")
     @DeleteMapping(value = "/user/{id}")
-    @PreAuthorize("hasAuthority('sys:user:del')")
-    public WebResult<Boolean> deleteUser(@PathVariable String id) {
+//    @PreAuthorize("hasAuthority('sys:user:del')")
+    public WebResult<Boolean> deleteUser(@PathVariable Long id) {
         return WebResponse.WebResponse.ok(systemUsersService.removeById(id));
     }
 
     @ApiOperation(value = "查询用户信息", notes = "根据用户ID查询用户信息")
     @GetMapping(value = "/user")
-    public WebResult<SystemUsers> getUserInfo() {
-        SecurityUserInfo systemUsers = (SecurityUserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return WebResponse.WebResponse.ok(systemUsersService.getById(systemUsers.getUserId()));
+    public WebResult<UserInfo> getUserInfo() {
+        SecurityUserInfo systemUsers = (SecurityUserInfo) SecurityContextHolder.getContext()
+                                                                               .getAuthentication()
+                                                                               .getPrincipal();
+        return WebResponse.WebResponse.ok(systemUsersService.getSystemUser(systemUsers.getUserId()));
     }
 
     @ApiOperation(value = "根据部门ID获取用户列表", notes = "根据部门ID获取用户列表")
     @GetMapping(value = "/user/{departmentId}/{page}/{size}")
-    public WebResult<IPage<SystemUsers>> getUserInfoListByDepartment(@PathVariable String departmentId, @PathVariable Integer page, @PathVariable Integer size) {
+    public WebResult<IPage<SystemUsers>> getUserInfoListByDepartment(@PathVariable Long departmentId, @PathVariable Integer page, @PathVariable Integer size) {
         return WebResponse.WebResponse.ok(systemUsersService.getSystemUsersByDepartmentId(departmentId, page, size));
     }
 
     @ApiOperation(value = "重置用户密码")
     @PutMapping(value = "/user/reset/{id}")
-    @PreAuthorize("hasAuthority('sys:user:reset')")
-    public WebResult<String> resetPassword(@PathVariable String id) {
+//    @PreAuthorize("hasAuthority('sys:user:reset')")
+    public WebResult<String> resetPassword(@PathVariable Long id) {
         return WebResponse.WebResponse.ok(systemUsersService.resetPasswordById(id));
     }
 
     @ApiOperation(value = "设置用户角色")
     @PostMapping(value = "/user/roles/{id}")
-    @PreAuthorize("hasAuthority('sys:user:setrole')")
-    public WebResult<Boolean> setUserRoles(@PathVariable String id, @RequestBody List<String> roleIds) {
+//    @PreAuthorize("hasAuthority('sys:user:setrole')")
+    public WebResult<Boolean> setUserRoles(@PathVariable Long id, @RequestBody List<Long> roleIds) {
         return WebResponse.WebResponse.ok(systemUsersService.setUserRoles(id, roleIds));
     }
 
     @ApiOperation(value = "获取用户可以访问的路由")
     @GetMapping(value = "/user/router")
-    public WebResult<Set<String>> getUserRouter() {
-        SecurityUserInfo systemUsers = (SecurityUserInfo) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    public WebResult<Set<Long>> getUserRouter() {
+        SecurityUserInfo systemUsers = (SecurityUserInfo) SecurityContextHolder.getContext()
+                                                                               .getAuthentication()
+                                                                               .getPrincipal();
         return WebResponse.WebResponse.ok(systemUsersService.getUserRouterByUserId(systemUsers.getUserId()));
     }
 

@@ -23,7 +23,7 @@ public class SecurityUserInfo implements UserDetails {
     /**
      * 用户id
      */
-    private String userId;
+    private Long userId;
     /**
      * 用户名
      */
@@ -53,7 +53,7 @@ public class SecurityUserInfo implements UserDetails {
      */
     private List<GrantedAuthority> authorities;
 
-    public SecurityUserInfo(String userId, String username, String password, List<GrantedAuthority> authorities) {
+    public SecurityUserInfo(Long userId, String username, String password, List<GrantedAuthority> authorities) {
         this(userId, username, password, true, true, true, true, authorities);
     }
 

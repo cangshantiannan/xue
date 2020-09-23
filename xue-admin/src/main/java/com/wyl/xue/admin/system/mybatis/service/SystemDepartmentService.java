@@ -35,7 +35,7 @@ public interface SystemDepartmentService extends IService<SystemDepartment> {
      * @Author wangyl
      * @Version V1.0
      */
-    List<Object> getDepartmentTreeById(String id);
+    List<Object> getDepartmentTreeById(Long id);
 
     /**
      * @Description 获取指定部门下的所有一级子菜单 分页查询
@@ -45,6 +45,6 @@ public interface SystemDepartmentService extends IService<SystemDepartment> {
      * @Author wangyl
      * @Version V1.0
      */
-    IPage<SystemDepartment> getSubdirectoryById(String id, Integer page, Integer size);
+    IPage<SystemDepartment> getSubdirectoryById(Long id, Integer page, Integer size);
 
 }

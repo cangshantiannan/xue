@@ -6,14 +6,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wyl.xue.admin.security.UserInfoJwt;
+import com.wyl.xue.admin.security.user.SecurityUserInfo;
+import com.wyl.xue.admin.system.mybatis.entity.SystemRoles;
 import com.wyl.xue.admin.system.mybatis.entity.SystemUserRole;
 import com.wyl.xue.admin.system.mybatis.entity.SystemUsers;
 import com.wyl.xue.admin.system.mybatis.mapper.SystemUsersMapper;
 import com.wyl.xue.admin.system.mybatis.service.*;
-import com.wyl.xue.admin.security.UserInfoJwt;
-import com.wyl.xue.admin.security.user.SecurityUserInfo;
-import com.wyl.xue.admin.system.mybatis.entity.SystemRoles;
-import com.wyl.xue.xuebackground.system.mybatis.service.*;
+import com.wyl.xue.admin.system.vo.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
@@ -80,7 +80,7 @@ public class SystemUsersServiceImpl extends ServiceImpl<SystemUsersMapper, Syste
      * @Version V1.0
      */
     @Override
-    public IPage<SystemUsers> getSystemUsersByDepartmentId(String departmentId, Integer page, Integer size) {
+    public IPage<SystemUsers> getSystemUsersByDepartmentId(Long departmentId, Integer page, Integer size) {
         List<Object> departmentIds = systemDepartmentService.getDepartmentTreeById(departmentId);
         Page<SystemUsers> pageInfo = new Page<>(page, size);
         IPage<SystemUsers> systemUsers = this.page(pageInfo, Wrappers.<SystemUsers>lambdaQuery().in(SystemUsers::getDepartmentId, departmentIds));
@@ -99,7 +99,7 @@ public class SystemUsersServiceImpl extends ServiceImpl<SystemUsersMapper, Syste
      * @Version V1.0
      */
     @Override
-    public List<SystemUsers> getSystemUsersByDepartmentId(String departmentId) {
+    public List<SystemUsers> getSystemUsersByDepartmentId(Long departmentId) {
         List<SystemUsers> systemUsers = this.list(Wrappers.<SystemUsers>lambdaQuery().eq(SystemUsers::getDepartmentId, departmentId));
         if (log.isDebugEnabled()) {
             log.debug(systemUsers.toString());
@@ -116,7 +116,7 @@ public class SystemUsersServiceImpl extends ServiceImpl<SystemUsersMapper, Syste
      * @Version V1.0
      */
     @Override
-    public String resetPasswordById(String id) {
+    public String resetPasswordById(Long id) {
         SystemUsers systemUsers = this.getById(id);
         systemUsers.setPassword("123456");
         this.updateById(systemUsers);
@@ -133,27 +133,47 @@ public class SystemUsersServiceImpl extends ServiceImpl<SystemUsersMapper, Syste
      * @Version V1.0
      */
     @Override
-    public Boolean setUserRoles(String id, List<String> roleIds) {
+    public Boolean setUserRoles(Long id, List<Long> roleIds) {
         /**
          *用户角色表处理 先删除数据 再重新增加
          */
         systemUserRoleService.remove(Wrappers.<SystemUserRole>lambdaQuery().eq(SystemUserRole::getUserId, id));
-        List<SystemUserRole> systemUserRoleList = roleIds.parallelStream().map(roleid -> SystemUserRole.builder().roleId(roleid).UserId(id).build()).collect(Collectors.toList());
+        List<SystemUserRole> systemUserRoleList = roleIds.parallelStream()
+                                                         .map(roleid -> SystemUserRole.builder()
+                                                                                      .roleId(roleid)
+                                                                                      .UserId(id)
+                                                                                      .build())
+                                                         .collect(Collectors.toList());
         return systemUserRoleService.saveBatch(systemUserRoleList);
     }
 
     /**
-     * @Description 通过用户名获取用户信息
-     * @param name
+     * @Description 通过用户id获取用户信息
+     * @param userId
      * @return com.wyl.xue.system.mybatis.entity.SystemUsers
      * @Date 2020/4/18 0:16
      * @Author wangyl
      * @Version V1.0
      */
     @Override
-    public SystemUsers getSystemUser(String name) {
-        LambdaQueryWrapper<SystemUsers> systemUsersLambdaQueryWrapper = Wrappers.<SystemUsers>lambdaQuery().eq(SystemUsers::getUsername, name);
-        return this.getOne(systemUsersLambdaQueryWrapper);
+    public UserInfo getSystemUser(Long userId) {
+        SystemUsers systemUsers = this.baseMapper.selectById(userId);
+        systemUsers.setUserId(null);
+        return new UserInfo(systemUsers);
+    }
+
+    /**
+     * @Description 通过用户名 获取用户信息
+     * @param userName
+     * @return com.wyl.xue.admin.system.mybatis.entity.SystemUsers
+     * @Date 2020/9/22 10:43
+     * @Author wangyl
+     * @Version V1.0
+     */
+    @Override
+    public SystemUsers getSystemUserByName(String userName) {
+        LambdaQueryWrapper<SystemUsers> systemUsersLambdaQueryWrapper = Wrappers.<SystemUsers>lambdaQuery().eq(SystemUsers::getUsername, userName);
+        return this.baseMapper.selectOne(systemUsersLambdaQueryWrapper);
     }
 
     /**
@@ -165,13 +185,17 @@ public class SystemUsersServiceImpl extends ServiceImpl<SystemUsersMapper, Syste
      * @Version V1.0
      */
     @Override
-    public Set<String> getSystemPermissions(String userId) {
+    public Set<String> getSystemPermissions(Long userId) {
         List<SystemRoles> rolesList = systemRolesService.getRolesByUserId(userId);
-        List<String> roles = rolesList.parallelStream().map(SystemRoles::getId).collect(Collectors.toList());
+        List<Long> roles = rolesList.parallelStream()
+                                    .map(SystemRoles::getRoldId)
+                                    .collect(Collectors.toList());
         if (roles.isEmpty()) {
             return new TreeSet<>();
         } else {
-            Set<String> permSet = rolesList.parallelStream().map(SystemRoles::getRoleCode).collect(Collectors.toSet());
+            Set<String> permSet = rolesList.parallelStream()
+                                           .map(SystemRoles::getRoleCode)
+                                           .collect(Collectors.toSet());
             permSet.addAll(systemRoleMenuService.getPermByRoleIds(roles));
             return permSet;
         }
@@ -191,10 +215,12 @@ public class SystemUsersServiceImpl extends ServiceImpl<SystemUsersMapper, Syste
         //用户验证
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userName, password));
         //存储认证信息
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        SecurityContextHolder.getContext()
+                             .setAuthentication(authentication);
         //生成token
         SecurityUserInfo userDetail = (SecurityUserInfo) authentication.getPrincipal();
-        return UserInfoJwt.generateUserInfoToken(userDetail.getUsername(), userDetail.getAuthorities(), userDetail.getUserId());
+        return UserInfoJwt.generateUserInfoToken(userDetail.getUsername(), userDetail.getAuthorities(), userDetail.getUserId()
+                                                                                                                  .toString());
     }
 
     /**
@@ -206,9 +232,11 @@ public class SystemUsersServiceImpl extends ServiceImpl<SystemUsersMapper, Syste
      * @Version V1.0
      */
     @Override
-    public Set<String> getUserRouterByUserId(String userId) {
+    public Set<Long> getUserRouterByUserId(Long userId) {
         List<SystemRoles> rolesByUserId = systemRolesService.getRolesByUserId(userId);
-        List<String> roles = rolesByUserId.parallelStream().map(SystemRoles::getId).collect(Collectors.toList());
+        List<Long> roles = rolesByUserId.parallelStream()
+                                        .map(SystemRoles::getRoldId)
+                                        .collect(Collectors.toList());
         if (roles.isEmpty()) {
             return new TreeSet<>();
         } else {

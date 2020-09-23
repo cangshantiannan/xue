@@ -39,7 +39,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        SystemUsers systemUser = systemUsersService.getSystemUser(username);
+        SystemUsers systemUser = systemUsersService.getSystemUserByName(username);
         if (ObjectUtil.isNull(systemUser)) {
             log.error("登录用户：" + username + " 不存在.");
             throw new UsernameNotFoundException("登录用户：" + username + " 不存在");
@@ -56,7 +56,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @Author wangyl
      * @Version V1.0
      */
-    private List<GrantedAuthority> getUserAuthorities(String userId) {
+    private List<GrantedAuthority> getUserAuthorities(Long userId) {
         Set<String> perms = systemUsersService.getSystemPermissions(userId);
         /**
          *将 SET 权限信息 转化为标准权限信息

@@ -4,7 +4,6 @@
  **/
 package com.wyl.xue.seckill.mybatis.entity;
 
-import com.wyl.xue.core.mybatis.entity.SystemBase;
 import lombok.Data;
 
 /**
@@ -15,7 +14,7 @@ import lombok.Data;
  * @version V1.0
  */
 @Data
-public class BaseSeckillInformation extends SystemBase implements SeckillInformation {
+public class BaseSeckillInformation implements SeckillInformation {
     /**
      * 活动商品id 唯一值
      */

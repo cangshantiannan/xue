@@ -5,15 +5,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wyl.xue.admin.system.mybatis.entity.SystemMenu;
 import com.wyl.xue.admin.system.mybatis.mapper.SystemMenuMapper;
 import com.wyl.xue.admin.system.mybatis.service.SystemMenuService;
 import com.wyl.xue.admin.system.mybatis.service.SystemRoleMenuService;
 import com.wyl.xue.admin.system.mybatis.service.SystemUsersService;
+import com.wyl.xue.admin.system.vo.MenuTree;
 import com.wyl.xue.core.util.exception.BizException;
 import com.wyl.xue.core.util.result.ResultCode;
 import com.wyl.xue.core.util.tree.TreeUtil;
-import com.wyl.xue.admin.system.mybatis.entity.SystemMenu;
-import com.wyl.xue.admin.system.vo.MenuTree;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -44,7 +44,8 @@ public class SystemMenuServiceImpl extends ServiceImpl<SystemMenuMapper, SystemM
     @Override
     public boolean removeById(Serializable id) {
         List<SystemMenu> systemMenuList = this.list(Wrappers.<SystemMenu>lambdaQuery().eq(SystemMenu::getParentId, id));
-        if (systemMenuList.isEmpty() && systemRoleMenuService.getSystemRoleMenuByMenuId(id.toString()).isEmpty()) {
+        if (systemMenuList.isEmpty() && systemRoleMenuService.getSystemRoleMenuByMenuId(Long.valueOf(id.toString()))
+                                                             .isEmpty()) {
             return super.removeById(id);
         } else {
             log.error("该节点有相关数据无法删除[{}]", id);
@@ -63,10 +64,11 @@ public class SystemMenuServiceImpl extends ServiceImpl<SystemMenuMapper, SystemM
     public List<MenuTree> getMenuTree() {
         List<SystemMenu> systemMenuList = this.list(Wrappers.<SystemMenu>lambdaQuery().ne(SystemMenu::getType, 2));
         List<MenuTree> menuTreeList = new ArrayList<>();
-        systemMenuList.stream().forEach(systemMenu -> {
-            MenuTree menuTree = new MenuTree(systemMenu.getMenuId(), systemMenu.getParentId(), systemMenu.getMenuName());
-            menuTreeList.add(menuTree);
-        });
+        systemMenuList.stream()
+                      .forEach(systemMenu -> {
+                          MenuTree menuTree = new MenuTree(systemMenu.getMenuId(), systemMenu.getParentId(), systemMenu.getMenuName());
+                          menuTreeList.add(menuTree);
+                      });
         return TreeUtil.bulid(menuTreeList, "-1", null);
     }
 
@@ -79,7 +81,7 @@ public class SystemMenuServiceImpl extends ServiceImpl<SystemMenuMapper, SystemM
      * @Version V1.0
      */
     @Override
-    public List<SystemMenu> getMenusById(String id) {
+    public List<SystemMenu> getMenusById(Long id) {
         Map<SFunction<SystemMenu, ?>, Object> params = new HashMap<>();
         params.put(SystemMenu::getParentId, id);
         params.put(SystemMenu::getType, 2);

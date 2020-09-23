@@ -3,6 +3,7 @@ package com.wyl.xue.admin.system.mybatis.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.wyl.xue.admin.system.mybatis.entity.SystemUsers;
+import com.wyl.xue.admin.system.vo.UserInfo;
 
 import java.util.List;
 import java.util.Set;
@@ -23,7 +24,7 @@ public interface SystemUsersService extends IService<SystemUsers> {
      * @Author wangyl
      * @Version V1.0
      */
-    IPage<SystemUsers> getSystemUsersByDepartmentId(String departmentId, Integer page, Integer size);
+    IPage<SystemUsers> getSystemUsersByDepartmentId(Long departmentId, Integer page, Integer size);
 
     /**
      * @Description 通过部门id获取该部门下的所有用户信息 不包括子部门
@@ -33,7 +34,7 @@ public interface SystemUsersService extends IService<SystemUsers> {
      * @Author wangyl
      * @Version V1.0
      */
-    List<SystemUsers> getSystemUsersByDepartmentId(String departmentId);
+    List<SystemUsers> getSystemUsersByDepartmentId(Long departmentId);
 
     /**
      * @Description 通过用户id重置用户密码重置密码为123456
@@ -43,7 +44,7 @@ public interface SystemUsersService extends IService<SystemUsers> {
      * @Author wangyl
      * @Version V1.0
      */
-    String resetPasswordById(String id);
+    String resetPasswordById(Long id);
 
     /**
      * @Description 设置用户的角色信息
@@ -54,17 +55,28 @@ public interface SystemUsersService extends IService<SystemUsers> {
      * @Author wangyl
      * @Version V1.0
      */
-    Boolean setUserRoles(String id, List<String> roleIds);
+    Boolean setUserRoles(Long id, List<Long> roleIds);
 
     /**
-     * @Description 通过用户名获取用户信息
-     * @param name
+     * @Description 通过用户id 获取用户信息
+     * @param userId
      * @return com.wyl.xue.system.mybatis.entity.SystemUsers
      * @Date 2020/4/18 0:16
      * @Author wangyl
      * @Version V1.0
      */
-    SystemUsers getSystemUser(String name);
+    UserInfo getSystemUser(Long userId);
+
+    /**
+     * @Description 通过用户名 获取用户信息
+     * @param userName
+     * @return com.wyl.xue.admin.system.mybatis.entity.SystemUsers
+     * @Date 2020/9/22 10:43
+     * @Author wangyl
+     * @Version V1.0
+     */
+    SystemUsers getSystemUserByName(String userName);
+
 
     /**
      * @Description 通过用户ID 获取用户权限
@@ -74,7 +86,7 @@ public interface SystemUsersService extends IService<SystemUsers> {
      * @Author wangyl
      * @Version V1.0
      */
-    Set<String> getSystemPermissions(String userId);
+    Set<String> getSystemPermissions(Long userId);
 
 
     /**
@@ -94,8 +106,10 @@ public interface SystemUsersService extends IService<SystemUsers> {
      * @return java.util.List<java.lang.String>
      * @Date 2020/5/22 2:18 下午
      * @Author wangyl
-     * @Version  V1.0
+     * @Version V1.0
      */
-    Set<String>getUserRouterByUserId(String userId);
+    Set<Long> getUserRouterByUserId(Long userId);
+
+
 }
 
