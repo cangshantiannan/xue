@@ -45,7 +45,7 @@ public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMap
      * @Version V1.0
      */
     @Override
-    public List<DepartmentTree> getDepartmentTree() {
+    public List<DepartmentTree> getDepartmentTree(Object root) {
         List<SystemDepartment> systemDepartmentList = this.list();
         List<DepartmentTree> departmentTreeList = new ArrayList<>();
         systemDepartmentList.stream()
@@ -53,7 +53,7 @@ public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMap
                                 DepartmentTree departmentTree = new DepartmentTree(systemDepartment.getDepartmentId(), systemDepartment.getParentId(), systemDepartment.getDepartmentName());
                                 departmentTreeList.add(departmentTree);
                             });
-        return TreeUtil.bulid(departmentTreeList, -1L, null);
+        return TreeUtil.bulid(departmentTreeList, root, null);
     }
 
     /**
@@ -67,8 +67,9 @@ public class SystemDepartmentServiceImpl extends ServiceImpl<SystemDepartmentMap
     @Override
     public List<Object> getDepartmentTreeById(Long id) {
         List<Object> resultIdList = new ArrayList<>();
-        List<DepartmentTree> departmentTreeList = this.getDepartmentTree();
+        List<DepartmentTree> departmentTreeList = this.getDepartmentTree(id);
         TreeUtil.getTreeChildrenId(departmentTreeList, resultIdList);
+        resultIdList.add(id);
         return resultIdList;
     }
 

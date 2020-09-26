@@ -13,7 +13,6 @@ import com.wyl.xue.core.util.result.WebResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -36,21 +35,21 @@ public class RoleController {
 
     @ApiOperation(value = "添加角色信息", notes = "新建一个角色")
     @PostMapping(value = "/role")
-    @PreAuthorize("hasAuthority('sys:role:add')")
+//    @PreAuthorize("hasAuthority('sys:role:add')")
     public WebResult<Boolean> addRole(@RequestBody SystemRoles systemRoles) {
         return WebResponse.WebResponse.ok(systemRolesService.save(systemRoles));
     }
 
     @PutMapping(value = "/role/{id}")
     @ApiOperation(value = "修改角色信息")
-    @PreAuthorize("hasAuthority('sys:role:change')")
+//    @PreAuthorize("hasAuthority('sys:role:change')")
     public WebResult<Boolean> changeRole(@RequestBody SystemRoles systemRoles) {
         return WebResponse.WebResponse.ok(systemRolesService.updateById(systemRoles));
     }
 
     @DeleteMapping(value = "/role/{id}")
     @ApiOperation(value = "通过ID删除一个角色")
-    @PreAuthorize("hasAuthority('sys:role:del')")
+//    @PreAuthorize("hasAuthority('sys:role:del')")
     public WebResult<Boolean> deleteRole(@PathVariable Integer id) {
         return WebResponse.WebResponse.ok(systemRolesService.removeById(id));
     }
@@ -69,14 +68,14 @@ public class RoleController {
 
     @GetMapping(value = "/role/user/{userid}")
     @ApiOperation(value = "通过用户id 获取该用户下的所有角色")
-    @PreAuthorize("hasAuthority('sys:role:getuser')")
+//    @PreAuthorize("hasAuthority('sys:role:getuser')")
     public WebResult<List<SystemRoles>> getRolesInfoByUserId(@PathVariable Long userId) {
         return WebResponse.WebResponse.ok(systemRolesService.getRolesByUserId(userId));
     }
 
     @PostMapping(value = "/role/menus/{id}")
     @ApiOperation(value = "设置角色的菜单信息")
-    @PreAuthorize("hasAuthority('sys:role:setmenu')")
+//    @PreAuthorize("hasAuthority('sys:role:setmenu')")
     public WebResult<Boolean> setRoleMenus(@PathVariable Long id, @RequestBody List<Long> menuIds) {
         return WebResponse.WebResponse.ok(systemRolesService.setRoleMenus(id, menuIds));
     }

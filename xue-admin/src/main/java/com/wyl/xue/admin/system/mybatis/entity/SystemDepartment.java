@@ -46,4 +46,9 @@ public class SystemDepartment extends SystemBase {
      */
     private String operator;
 
+    /**
+     * 部门描述
+     */
+    private String introduction;
+
 }

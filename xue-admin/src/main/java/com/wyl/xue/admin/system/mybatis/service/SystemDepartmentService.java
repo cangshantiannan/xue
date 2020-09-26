@@ -25,7 +25,7 @@ public interface SystemDepartmentService extends IService<SystemDepartment> {
      * @Author wangyl
      * @Version V1.0
      */
-    List<DepartmentTree> getDepartmentTree();
+    List<DepartmentTree> getDepartmentTree(Object root);
 
     /**
      * @Description 获取指定id的树的所有子节点id

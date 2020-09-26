@@ -5,6 +5,7 @@
 package com.wyl.xue.admin.controller.system;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.wyl.xue.admin.security.user.SecurityUserInfo;
 import com.wyl.xue.admin.system.mybatis.entity.SystemDepartment;
 import com.wyl.xue.admin.system.mybatis.service.SystemDepartmentService;
 import com.wyl.xue.admin.system.vo.DepartmentTree;
@@ -14,8 +15,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -38,6 +41,10 @@ public class DepartmentController {
     @PreAuthorize("hasAuthority('sys:dept:add')")
     @ApiOperation(value = "添加部门接口", notes = "添加部门接口")
     public WebResult<Boolean> addDepartment(@RequestBody SystemDepartment systemDepartment) {
+        SecurityUserInfo systemUsers = (SecurityUserInfo) SecurityContextHolder.getContext()
+                                                                               .getAuthentication()
+                                                                               .getPrincipal();
+        systemDepartment.setOperator(systemUsers.getUsername());
         return WebResponse.WebResponse.ok(systemDepartmentService.save(systemDepartment));
     }
 
@@ -45,6 +52,10 @@ public class DepartmentController {
     @ApiOperation(value = "修改部门信息接口", notes = "修改部门信息接口")
     @PreAuthorize("hasAuthority('sys:dept:update')")
     public WebResult<Boolean> changeDepartment(@RequestBody SystemDepartment systemDepartment) {
+        SecurityUserInfo systemUsers = (SecurityUserInfo) SecurityContextHolder.getContext()
+                                                                               .getAuthentication()
+                                                                               .getPrincipal();
+        systemDepartment.setOperator(systemUsers.getUsername());
         return WebResponse.WebResponse.ok(systemDepartmentService.updateById(systemDepartment));
     }
 
@@ -58,12 +69,13 @@ public class DepartmentController {
     @ApiOperation(value = "获取部门树", notes = "获取部门树")
     @GetMapping(value = "/department/tree")
     public WebResult<List<DepartmentTree>> getUserInfo() {
-        return WebResponse.WebResponse.ok(systemDepartmentService.getDepartmentTree());
+        return WebResponse.WebResponse.ok(systemDepartmentService.getDepartmentTree(-1L));
     }
 
     @ApiOperation(value = "获取指定部门下的一级子目录")
     @GetMapping(value = "/department/{id}/{page}/{size}")
     public WebResult<IPage<SystemDepartment>> getSubdirectoryById(@PathVariable Long id, @PathVariable Integer page, @PathVariable Integer size) {
+        HashMap a = new HashMap();
         return WebResponse.WebResponse.ok(systemDepartmentService.getSubdirectoryById(id, page, size));
     }
 
